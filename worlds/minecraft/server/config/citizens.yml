@@ -1,0 +1,295 @@
+# ================================================
+# Citizens 2.0.30 插件配置文件
+# PaperMC 1.20.1 服务器
+# 创建时间: 2025-11-13
+# ================================================
+
+# Citizens基础配置
+config-version: 1
+update-check: true
+use-particle-listener: false
+
+# NPC设置
+npc:
+  # NPC租赁设置（如果启用NPC市场）
+  shulker-price: 1000
+  # NPC计数限制
+  count: -1
+  # 无头僵尸默认外观
+  nohelmet-fix: true
+  # 自动保存间隔（秒）
+  save-interval: 15
+  # 物理效果
+  physics:
+    door: true
+    storage:
+      disable-on-page: false
+    see-through-passthrough: true
+
+# 聊天设置
+chat:
+  # 启用聊天代理
+  enable: true
+  # 玩家回复延迟
+  response-delay: 0
+  # 全局广播延迟
+  broadcast-delay: 0
+  # 聊天模版
+  template: default
+
+# 文本模版配置
+texts:
+  # 默认文本模版
+  default:
+    '':
+      - '&e{enumName}'
+    '1':
+      - '&e{enumName}&3: {text}'
+      - ''
+      - '&e类型: &f{type}'
+      - '&e拥有者: &f{owner}'
+      - '&e世界: &f{world}'
+      - ''
+      - '&f描述: &7{desc}'
+      - ''
+      - '&7右键点击编辑'
+
+# 高级设置
+advanced:
+  # 调试模式
+  debug: false
+  # 协议版本
+  protocol-version: 764
+  # 最大追踪距离
+  max-tracked-distance: 100.0
+  # NPC说话时显示说话泡泡
+  show-talk-bubble: true
+  # 角色夜晚可见性
+  see-through-passthrough: true
+  # 允许操作块的NPC
+  allow-op: false
+  # 允许其他插件修改NPC
+  allow-plugins: true
+  # 可选择性停止（保持NPC活动）
+  entity-stop: true
+  # 锁定出生位置
+  stationary-locations: true
+  # 启用RCE安全检查
+  rce-security: true
+  # 安全模式
+  safe-mode: false
+  # API版本
+  api-version: 2.0.30
+  # 忽略权限错误
+  ignore-permission-warnings: true
+
+# 经济设置（用于NPC交易）
+economy:
+  # 使用Vault经济插件
+  enabled: false
+  # 交易成本百分比（服务器可能收取的费用）
+  trading-cost-percentage: 0
+
+# 主要配置节
+# ================================================
+# NPC文明系统配置
+# ================================================
+
+# 农民NPC配置
+farmer-npc:
+  enabled: true
+  name: "农民NPC"
+  item-name: "农民"
+  description: "使用木板换取食物的NPC商人"
+  max-uses: 10
+  cooldown: 60
+  
+  # 交易物品配置
+  trades:
+    - item: "wooden_planks"
+      amount: 8
+      reward: "bread"
+      reward-amount: 3
+    - item: "wooden_planks"
+      amount: 16
+      reward: "golden_apple"
+      reward-amount: 1
+    - item: "wooden_planks"
+      amount: 32
+      reward: "bread"
+      reward-amount: 15
+  
+  # 价格动态调整设置
+  price-adjustment:
+    enabled: true
+    threshold: 10
+    adjustment-percentage: 0.2
+    min-uses-before-adjustment: 10
+
+# 铁匠NPC配置
+blacksmith-npc:
+  enabled: true
+  name: "铁匠NPC"
+  item-name: "铁匠"
+  description: "使用煤炭换取工具的NPC商人"
+  max-uses: 10
+  cooldown: 60
+  
+  # 交易物品配置
+  trades:
+    - item: "coal"
+      amount: 8
+      reward: "iron_pickaxe"
+      reward-amount: 1
+    - item: "coal"
+      amount: 16
+      reward: "iron_sword"
+      reward-amount: 1
+    - item: "coal"
+      amount: 24
+      reward: "iron_helmet"
+      reward-amount: 1
+  
+  # 价格动态调整设置
+  price-adjustment:
+    enabled: true
+    threshold: 10
+    adjustment-percentage: 0.2
+    min-uses-before-adjustment: 10
+
+# 商人NPC配置（物资补给）
+merchant-npc:
+  enabled: true
+  name: "物资商人"
+  item-name: "商人"
+  description: "专门供应珍贵材料的商人"
+  max-uses: 10
+  cooldown: 60
+  
+  # 交易物品配置
+  trades:
+    - item: "emerald"
+      amount: 1
+      reward: "diamond"
+      reward-amount: 3
+    - item: "diamond"
+      amount: 3
+      reward: "netherite_ingot"
+      reward-amount: 1
+    - item: "gold_ingot"
+      amount: 10
+      reward: "totem_of_undying"
+      reward-amount: 1
+  
+  # 价格动态调整设置
+  price-adjustment:
+    enabled: true
+    threshold: 10
+    adjustment-percentage: 0.2
+    min-uses-before-adjustment: 10
+
+# ================================================
+# 环境复杂化系统配置
+# ================================================
+
+# 环境演化设置
+evolution:
+  # 演化间隔（分钟）
+  interval: 10
+  
+  # 洞穴密度调整
+  cave-density:
+    enabled: true
+    initial: 0.3
+    final: 0.8
+    increment: 0.01
+  
+  # 矿石稀缺度调整
+  ore-scarcity:
+    enabled: true
+    initial: 1.0
+    final: 0.3
+    decrement: 0.01
+  
+  # 敌对生物强化
+  mob-strengthening:
+    enabled: true
+    hp-increase-per-evolution: 0.1
+    damage-increase-per-evolution: 0.05
+    speed-increase-per-evolution: 0.02
+
+# ================================================
+# 气候事件系统配置
+# ================================================
+
+# 气候事件设置
+climate-events:
+  # 启用气候事件系统
+  enabled: true
+  # 事件检查间隔（秒）
+  check-interval: 300
+  
+  # 干旱事件
+  drought:
+    enabled: true
+    duration:
+      min: 72  # 3天
+      max: 120 # 5天
+    chance: 0.05  # 5% 概率
+    crop-growth-multiplier: 0.2  # 80%减速
+  
+  # 洪水事件
+  flood:
+    enabled: true
+    duration:
+      min: 48  # 2天
+      max: 96  # 4天
+    chance: 0.03  # 3% 概率
+    affected-areas:
+      - "swamp"
+      - "river"
+      - "beach"
+    building-damage-chance: 0.3  # 30%概率冲毁建筑
+  
+  # 僵尸围城
+  siege:
+    enabled: true
+    # 每月满月夜触发
+    full-moon-only: true
+    duration: 720  # 30分钟
+    mob-wave-duration: 600  # 10分钟
+    mob-count-multiplier: 2.0  # 怪物数量翻倍
+    affected-radius: 200  # 影响半径200格
+
+# ================================================
+# 玩家互动设置
+# ================================================
+
+# 玩家权限设置
+permissions:
+  # 基本NPC交互权限
+  basic:
+    - "npc.interact"
+    - "npc.talk"
+    - "npc.trade"
+  
+  # NPC管理权限（管理员）
+  admin:
+    - "npc.create"
+    - "npc.edit"
+    - "npc.remove"
+    - "npc.*"
+
+# 奖励系统
+rewards:
+  # 完成交易的奖励
+  trading-rewards:
+    enabled: true
+    experience-points: 5
+    coins: 10
+  
+  # 参与气候事件的奖励
+  climate-event-rewards:
+    drought-survival: 50
+    flood-protection: 75
+    siege-survival: 100

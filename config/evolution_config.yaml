@@ -1,0 +1,25 @@
+# NeuroMinecraft Genesis 进化系统配置文件
+# 开发者：bingdongni
+
+evolution_parameters:
+  population_size: 100
+  generations: 1000
+  mutation_rate: 0.1
+  crossover_rate: 0.8
+  elite_size: 10
+  
+selection_method:
+  type: "NSGA-II"
+  tournament_size: 5
+  pressure: 2.0
+  
+fitness_weights:
+  performance: 0.4
+  creativity: 0.3
+  stability: 0.2
+  efficiency: 0.1
+  
+genetic_operators:
+  uniform_crossover: true
+  gaussian_mutation: true
+  adaptive_mutation: true

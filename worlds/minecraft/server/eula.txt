@@ -1,0 +1,11 @@
+# Minecraft最终用户许可协议
+# 通过运行服务器，你已同意遵守Minecraft最终用户许可协议
+# 详细协议请访问: https://aka.ms/MinecraftEULA
+# 中文版协议: https://aka.ms/MinecraftEULACN
+
+# 最后更新日期
+eula=false
+
+# 设置为true表示您已阅读并同意Minecraft最终用户许可协议
+# 请将以下行修改为 true 以启动服务器
+eula=true

@@ -1,0 +1,20 @@
+# NeuroMinecraft Genesis 世界环境配置文件
+# 开发者：bingdongni
+
+real_world:
+  camera_resolution: [640, 480]
+  frame_rate: 30
+  max_detection_objects: 20
+  processing_frequency: 10
+  
+virtual_world:
+  simulation_steps: 10000
+  environment_size: [100, 100, 100]
+  physics_enabled: true
+  random_events: true
+  
+minecraft_world:
+  server_address: "localhost:25565"
+  max_players: 10
+  world_size: [1000, 256, 1000]
+  complexity_level: "medium"

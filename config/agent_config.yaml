@@ -1,0 +1,25 @@
+# NeuroMinecraft Genesis 智能体配置文件
+# 开发者：bingdongni
+
+agent_settings:
+  default_agent_count: 50
+  max_agent_count: 1000
+  learning_rate: 0.01
+  exploration_rate: 0.1
+  memory_size: 10000
+  
+behavior_parameters:
+  cooperation_weight: 0.7
+  competition_weight: 0.3
+  creativity_threshold: 0.6
+  adaptation_speed: 0.05
+  
+social_structure:
+  hierarchy_levels: 5
+  collaboration_groups: 8
+  knowledge_sharing_rate: 0.4
+  
+action_execution:
+  max_concurrent_actions: 10
+  action_timeout: 30
+  failure_retry_count: 3

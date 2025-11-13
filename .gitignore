@@ -1,0 +1,248 @@
+# NeuroMinecraft Genesis .gitignore
+# 开发者：bingdongni
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# poetry
+poetry.lock
+
+# pdm
+.pdm.toml
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# NeuroMinecraft Genesis Specific
+# ====================================
+
+# 模型和训练数据
+models/
+*.model
+*.pkl
+*.h5
+*.pt
+*.pth
+
+# 实验输出
+experiments/output/
+logs/
+*.log
+*.csv
+*.json
+
+# 数据文件
+data/raw/
+data/processed/
+*.csv
+*.hdf5
+*.h5
+*.npy
+*.npz
+
+# 可视化输出
+static/output/
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.gif
+
+# 配置和临时文件
+config/local/
+config/temp/
+*.tmp
+*.temp
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 机器学习相关
+checkpoints/
+*.ckpt
+*.pt
+torch_models/
+tensorflow_models/
+
+# 数据库文件
+*.db
+*.sqlite
+
+# 缓存目录
+.cache/
+.cache/
+
+# 临时文件
+tmp/
+temp/
+temp_*
+
+# GPU memory dumps
+*.nvidia-smi.log
+
+# Minecraft相关
+minecraft_data/
+world_saves/
+
+# 摄像头和传感器数据
+camera_captures/
+sensor_logs/
+raw_sensors/
+
+# 量子计算临时文件
+quantum_cache/
+*.qasm
+qiskit_cache/
+
+# 神经仿真缓存
+brain_cache/
+spiking_cache/
+*.brain
+
+# 测试覆盖率
+.coverage
+htmlcov/
+
+# IDE配置
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 系统相关
+.lock
+.pid
+*.pid
+
+# 大文件跟踪
+large_files.txt
