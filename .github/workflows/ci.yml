@@ -21,12 +21,12 @@ jobs:
     steps:
     - name: 📥 Checkout代码
       uses: actions/checkout@v4
-      
+
     - name: 🐍 设置Python
       uses: actions/setup-python@v4
       with:
         python-version: ${{ env.PYTHON_VERSION }}
-        
+
     - name: 📦 缓存pip依赖
       uses: actions/cache@v3
       with:
@@ -35,19 +35,19 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
           ${{ runner.os }}-pip-test-
-          
+
     - name: 🔄 更新pip
       run: |
         python -m pip install --upgrade pip
-        
+
     - name: 📋 检查requirements.txt
       run: |
         if [ ! -f "requirements.txt" ]; then
-          echo "❌ requirements.txt 文件不存在"
+         echo "❌ requirements.txt 文件不存在"
           exit 1
         fi
         echo "✅ requirements.txt 文件存在"
-        
+
     - name: 🔍 运行环境检查脚本
       run: |
         if [ -f "check_environment.py" ]; then
@@ -55,21 +55,21 @@ jobs:
         else
           echo "⚠️ 未找到 check_environment.py"
         fi
-        
+
     - name: 🧪 测试核心导入
       run: |
         python -c "
         import sys
         sys.path.append('.')
-        
+
         # 测试核心模块
         core_modules = [
             'utils.brain_engine',
-            'agents.evolution.disco_rl_agent', 
+            'agents.evolution.disco_rl_agent',
             'utils.quantum_simulator.quantum_brain',
             'worlds.integrated_environment'
         ]
-        
+
         failed_modules = []
         for module in core_modules:
             try:
@@ -80,13 +80,13 @@ jobs:
                 failed_modules.append(module)
             except Exception as e:
                 print(f'⚠️ {module}: {str(e)[:100]}')
-        
+
         if failed_modules:
             print(f'\\n⚠️ {len(failed_modules)} 个模块导入失败')
         else:
             print('\\n✅ 所有核心模块导入成功')
         "
-        
+
     - name: 📊 生成检查报告
       if: always()
       run: |
@@ -95,14 +95,14 @@ jobs:
         echo "- 平台: $(uname -a)" >> environment_report.md
         echo "- 时间: $(date)" >> environment_report.md
         echo "- 状态: ${{ job.status }}" >> environment_report.md
-        
+
     - name: 📤 上传检查报告
       if: always()
       uses: actions/upload-artifact@v3
       with:
-        name: environment-check-report
-        path: environment_report.md
-
+         name: environment-check-report
+         path: environment_report.md
+    
   # 多Python版本测试
   multi-version-test:
     name: 🐍 Python ${{ matrix.python-version }} 测试
@@ -335,14 +335,47 @@ jobs:
     - name: ⚙️ 配置服务器
       run: |
         cd worlds/minecraft/server
+
+        # 仅在不存在时创建 server.properties，避免覆盖已有配置
+        if [ ! -f "server.properties" ]; then
+          cat > server.properties <<'SERVER_EOF'
+          server-name=NeuroMinecraft
+          server-port=25565
+          max-players=10
+          motd=NeuroMinecraft Genesis Test Server
+          online-mode=false
+          allow-nether=true
+          allow-flight=false
+          allow-cheats=true
+          max-world-size=10000
+          announce-player-achievements=true
+          enable-query=true
+          enable-rcon=false
+          broadcast-rcon-to-ops=true
+          force-gamemode=false
+          force-difficulty-locked=false
+          pvp=true
+          generate-structures=true
+          op-permission-level=4
+          resource-pack=
+          resource-pack-prompt=
+          resource-pack-id=
+          sync-player-chunk=true
+          function-permission-level=2
+          initial-enabled-packs=vanilla
+          SERVER_EOF
+            echo "✅ 创建server.properties"
+          else
+            echo "✅ server.properties 已存在，跳过创建"
+          fi
         
-        # 使用printf方式创建server.properties，避免YAML解析问题
-        printf 'server-name=NeuroMinecraft\nserver-port=25565\nmax-players=10\nmotd=NeuroMinecraft Genesis Test Server\nonline-mode=false\nallow-nether=true\nallow-flight=false\nallow-cheats=true\nmax-world-size=10000\nannounce-player-achievements=true\nenable-query=true\nenable-rcon=false\nbroadcast-rcon-to-ops=true\nforce-gamemode=false\nforce-difficulty-locked=false\npvp=true\ngenerate-structures=true\nop-permission-level=4\nresource-pack=\nresource-pack-prompt=\nresource-pack-id=\nsync-player-chunk=true\nfunction-permission-level=2\ninitial-enabled-packs=vanilla\nbroadcast-rcon-to-ops=true\n' > server.properties
-        echo "✅ 创建server.properties"
-        
-        # 确保EULA被接受
-        echo "eula=true" > eula.txt
-        echo "✅ 自动同意EULA"
+        # 确保EULA被接受（仅在不存在时创建）
+        if [ ! -f "eula.txt" ]; then
+          echo "eula=true" > eula.txt
+          echo "✅ 自动同意EULA"
+        else
+          echo "✅ EULA文件已存在"
+        fi
         
     - name: 🚀 测试服务器启动
       run: |
