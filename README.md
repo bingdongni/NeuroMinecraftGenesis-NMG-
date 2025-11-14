@@ -1,10 +1,10 @@
 <div align="center">
 
-# 🧠 NeuroMinecraft Genesis - AGI自主进化系统
+# 🧠 NeuroMinecraft Genesis - AI自主进化系统
 
 <div align="center">
 
-### 🚀 革命性的AGI自主进化认知智能体
+### 🚀 全新的AGI自主进化认知智能体
 
 **DiscoRL自主算法发现** | **六维认知引擎** | **量子类脑融合** | **三世界集成**
 
