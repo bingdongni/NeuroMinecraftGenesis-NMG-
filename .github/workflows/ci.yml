@@ -356,8 +356,8 @@ jobs:
       run: |
         cd worlds/minecraft/server
         
-        echo "🔧 测试PaperMC启动 (30秒超时)..."
-        timeout 30s java -Xms1G -Xmx1G -XX:+UseG1GC -jar paper.jar --nogui || echo "⏰ 服务器启动测试完成"
+        echo "🔧 测试PaperMC启动 (60秒超时)..."
+        timeout 60s java -Xms1G -Xmx1G -XX:+UseG1GC -jar paper.jar --nogui || echo "⏰ 服务器启动测试完成"
         
     - name: 📊 测试结果
       if: always()
