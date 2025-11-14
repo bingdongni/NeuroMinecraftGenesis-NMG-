@@ -325,7 +325,7 @@ jobs:
         PAPER_JAR="worlds/minecraft/server/paper.jar"
         if [ ! -f "$PAPER_JAR" ]; then
           echo "📥 下载PaperMC服务器..."
-          curl -L -o "$PAPER_JAR" \
+          curl --retry 3 --fail -L -o "$PAPER_JAR" \
             "https://api.papermc.io/v2/projects/paper/versions/1.20.1/builds/latest/downloads/paper-1.20.1-latest.jar"
           echo "✅ PaperMC下载完成"
         else
@@ -338,36 +338,11 @@ jobs:
 
         # 仅在不存在时创建 server.properties，避免覆盖已有配置
         if [ ! -f "server.properties" ]; then
-          cat > server.properties <<'SERVER_EOF'
-          server-name=NeuroMinecraft
-          server-port=25565
-          max-players=10
-          motd=NeuroMinecraft Genesis Test Server
-          online-mode=false
-          allow-nether=true
-          allow-flight=false
-          allow-cheats=true
-          max-world-size=10000
-          announce-player-achievements=true
-          enable-query=true
-          enable-rcon=false
-          broadcast-rcon-to-ops=true
-          force-gamemode=false
-          force-difficulty-locked=false
-          pvp=true
-          generate-structures=true
-          op-permission-level=4
-          resource-pack=
-          resource-pack-prompt=
-          resource-pack-id=
-          sync-player-chunk=true
-          function-permission-level=2
-          initial-enabled-packs=vanilla
-          SERVER_EOF
-            echo "✅ 创建server.properties"
-          else
-            echo "✅ server.properties 已存在，跳过创建"
-          fi
+          printf 'server-name=NeuroMinecraft\nserver-port=25565\nmax-players=10\nmotd=NeuroMinecraft Genesis Test Server\nonline-mode=false\nallow-nether=true\nallow-flight=false\nallow-cheats=true\nmax-world-size=10000\nannounce-player-achievements=true\nenable-query=true\nenable-rcon=false\nbroadcast-rcon-to-ops=true\nforce-gamemode=false\nforce-difficulty-locked=false\npvp=true\ngenerate-structures=true\nop-permission-level=4\nresource-pack=\nresource-pack-prompt=\nresource-pack-id=\nsync-player-chunk=true\nfunction-permission-level=2\ninitial-enabled-packs=vanilla\n' > server.properties
+          echo "✅ 创建server.properties"
+        else
+          echo "✅ server.properties 已存在，跳过创建"
+        fi
         
         # 确保EULA被接受（仅在不存在时创建）
         if [ ! -f "eula.txt" ]; then
