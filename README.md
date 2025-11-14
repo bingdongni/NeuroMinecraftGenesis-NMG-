@@ -58,7 +58,7 @@ NeuroMinecraft Genesis 是一个革命性的AI自主进化系统，参考了Disc
 ### 📧 联系我们
 
 - **开发者**：bingdongni
-- **GitHub**：[@your-username](https://github.com/your-username)
+- **GitHub**：[@bingdongni](https://github.com/bingdongni)
 
 ---
 
