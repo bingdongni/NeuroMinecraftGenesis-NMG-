@@ -1,6 +1,3 @@
-# NeuroMinecraft Genesis .gitignore
-# 开发者：bingdongni
-
 # Python
 __pycache__/
 *.py[cod]
@@ -19,77 +16,50 @@ parts/
 sdist/
 var/
 wheels/
-share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-MANIFEST
 
-# PyInstaller
-*.manifest
-*.spec
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-cover/
+# OS
+.DS_Store
+Thumbs.db
 
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
+# Project specific
+logs/
 *.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
+models/cache/
+data/cache/
+temp/
+cache/
+*.tmp
 
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-.pybuilder/
-target/
+# API keys and secrets
+.env
+config/secrets.yaml
 
 # Jupyter Notebook
 .ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
 
 # pyenv
 .python-version
 
 # pipenv
 Pipfile.lock
-
-# poetry
-poetry.lock
-
-# pdm
-.pdm.toml
 
 # PEP 582
 __pypackages__/
@@ -104,23 +74,12 @@ celerybeat.pid
 # Environments
 .env
 .venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
+# MyPy
 .mypy_cache/
 .dmypy.json
 dmypy.json
@@ -128,121 +87,48 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# pytype static type analyzer
-.pytype/
-
-# Cython debug symbols
-cython_debug/
-
 # PyCharm
 .idea/
 
 # VS Code
 .vscode/
 
-# NeuroMinecraft Genesis Specific
-# ====================================
-
-# 模型和训练数据
-models/
-*.model
-*.pkl
+# TensorFlow
+*.pb
+*.pbtxt
+*.tflite
 *.h5
+*.hdf5
+
+# PyTorch
 *.pt
 *.pth
+*.pkl
 
-# 实验输出
-experiments/output/
-logs/
-*.log
-*.csv
-*.json
+# Jupyter
+.ipynb_checkpoints
+*.ipynb
 
-# 数据文件
-data/raw/
-data/processed/
-*.csv
+# scientific python
 *.hdf5
-*.h5
 *.npy
 *.npz
 
-# 可视化输出
-static/output/
-*.png
-*.jpg
-*.jpeg
-*.svg
-*.gif
+# MLflow
+mlruns/
 
-# 配置和临时文件
-config/local/
-config/temp/
-*.tmp
-*.temp
+# DVC
+.dvcignore
+.dvc/
+dvc.yaml
 
-# 系统文件
-.DS_Store
-Thumbs.db
-desktop.ini
+# Weights & Biases
+wandb/
 
-# 机器学习相关
-checkpoints/
-*.ckpt
-*.pt
-torch_models/
-tensorflow_models/
+# Hydra
+outputs/
+multirun/
+.hydra/
 
-# 数据库文件
-*.db
-*.sqlite
-
-# 缓存目录
-.cache/
-.cache/
-
-# 临时文件
-tmp/
-temp/
-temp_*
-
-# GPU memory dumps
-*.nvidia-smi.log
-
-# Minecraft相关
-minecraft_data/
-world_saves/
-
-# 摄像头和传感器数据
-camera_captures/
-sensor_logs/
-raw_sensors/
-
-# 量子计算临时文件
-quantum_cache/
-*.qasm
-qiskit_cache/
-
-# 神经仿真缓存
-brain_cache/
-spiking_cache/
-*.brain
-
-# 测试覆盖率
-.coverage
-htmlcov/
-
-# IDE配置
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# 系统相关
-.lock
-.pid
-*.pid
-
-# 大文件跟踪
-large_files.txt
+# Ray Tune
+ray_results/

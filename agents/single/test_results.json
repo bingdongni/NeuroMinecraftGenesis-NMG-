@@ -1,0 +1,66 @@
+{
+  "atom_actions": {
+    "total": 23,
+    "successful": 10,
+    "success_rate": 0.43478260869565216
+  },
+  "skill_actions": {
+    "total": 5,
+    "successful": 0,
+    "success_rate": 0.0
+  },
+  "priority_system": {
+    "actions_tested": 5,
+    "all_scheduled": true
+  },
+  "sequence_system": {
+    "sequential_sequence": {
+      "sequence_id": "building_sequence",
+      "name": "建造房屋序列",
+      "state": "EXECUTING",
+      "total_actions": 5,
+      "current_index": 0,
+      "successful_actions": 0,
+      "failed_actions": 0,
+      "parallel_execution": false,
+      "start_time": 1763017702.4561608,
+      "elapsed_time": 3.001939296722412
+    },
+    "parallel_sequence": {
+      "sequence_id": "exploration_sequence",
+      "name": "探索序列",
+      "state": "EXECUTING",
+      "total_actions": 5,
+      "current_index": 0,
+      "successful_actions": 0,
+      "failed_actions": 0,
+      "parallel_execution": true,
+      "start_time": 1763017705.4581304,
+      "elapsed_time": 2.0004615783691406
+    }
+  },
+  "learning_system": {
+    "skill_name": "tree_harvesting",
+    "initial_mastery": 0.0,
+    "final_mastery": 0.0,
+    "execution_count": 0,
+    "success_rate": 0,
+    "recommendations": [
+      "simple_house",
+      "basic_mining",
+      "tree_harvesting"
+    ]
+  },
+  "performance": {
+    "concurrent_actions": 10,
+    "total_time": 3.000502109527588,
+    "actions_per_second": 3.3327755272181574,
+    "metrics": {
+      "actions_per_second": 0.55,
+      "average_execution_time": 0.5773535829601866,
+      "success_rate": 0.9090909090909091,
+      "queue_size": 0,
+      "active_sequences": 0
+    }
+  }
+}

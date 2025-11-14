@@ -1,0 +1,49 @@
+{
+  "test_metadata": {
+    "test_name": "泛化能力压力测试",
+    "test_time": "2025-11-13T16:35:20.508387",
+    "total_duration": 61.377835512161255,
+    "max_few_shot_attempts": 50,
+    "tested_tasks": [
+      "modded_minecraft",
+      "pybullet",
+      "reddit_dialogue"
+    ]
+  },
+  "zero_shot_results": {
+    "modded_minecraft": 0.3462101028011464,
+    "pybullet": 0.4338012099437717,
+    "reddit_dialogue": 0.7403539579592746
+  },
+  "few_shot_results": {
+    "modded_minecraft": 0.6756393313032729,
+    "pybullet": 0.524052139273924,
+    "reddit_dialogue": 0.7476903325399185
+  },
+  "adaptation_metrics": {
+    "modded_minecraft": {
+      "zero_shot_score": 0.3462101028011464,
+      "few_shot_score": 0.6756393313032729,
+      "adaptation_speed": 0.00658858457004253,
+      "success_rate_improvement": 0.3294292285021265,
+      "relative_improvement": 95.15297960306538
+    },
+    "pybullet": {
+      "zero_shot_score": 0.4338012099437717,
+      "few_shot_score": 0.524052139273924,
+      "adaptation_speed": 0.0018050185866030465,
+      "success_rate_improvement": 0.09025092933015233,
+      "relative_improvement": 20.804674413390973
+    },
+    "reddit_dialogue": {
+      "zero_shot_score": 0.7403539579592746,
+      "few_shot_score": 0.7476903325399185,
+      "adaptation_speed": 0.0001467274916128769,
+      "success_rate_improvement": 0.007336374580643845,
+      "relative_improvement": 0.990927988129619
+    }
+  },
+  "detailed_results": [
+    {
+      "task_name": "modded_minecraft",
+      "test_type": 

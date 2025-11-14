@@ -1,0 +1,36 @@
+{
+  "test_summary": {
+    "timestamp": "2025-11-13T16:38:37.361452",
+    "duration_seconds": 12.22082,
+    "total_tests": 9,
+    "passed_tests": 7,
+    "failed_tests": 2,
+    "warned_tests": 0,
+    "success_rate": 77.77777777777779
+  },
+  "detailed_results": {
+    "component_tests": {
+      "imports": "FAIL",
+      "cognitive_tracker": "PASS",
+      "hourly_monitor": "PASS",
+      "trend_analyzer": "PASS",
+      "statistical_analyzer": "PASS"
+    },
+    "integration_tests": {
+      "full_workflow": "PASS"
+    },
+    "performance_tests": {
+      "basic_performance": "PASS"
+    },
+    "data_tests": {
+      "integrity": "PASS"
+    },
+    "errors": [
+      "模块导入失败: No module named 'streamlit'"
+    ],
+    "warnings": []
+  },
+  "recommendations": [
+    "存在失败的测试，需要修复相关问题"
+  ]
+}

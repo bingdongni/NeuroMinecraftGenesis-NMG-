@@ -16,7 +16,6 @@ pandas==2.0.3
 
 # ==================== 计算机视觉与图像处理 ====================
 opencv-python==4.8.0.76
-# 扩展包 opencv-contrib-python==4.8.0.76 可安装，但不建议同时安装 opencv-python 和 opencv-contrib-python
 Pillow==10.0.0
 imageio==2.31.1
 scikit-image==0.20.0

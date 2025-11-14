@@ -1,0 +1,14 @@
+{
+  "generation": 0,
+  "timestamp": "2025-11-13T15:20:19.274164",
+  "best_fitness": 13.731040239320153,
+  "avg_fitness": 6.034029938560297,
+  "population_size": 20,
+  "genome_length": 5,
+  "diversity": 3.338617911289646,
+  "species_count": 20,
+  "checkpoint_type": "auto",
+  "file_hash": "fbaa121ce9265747b1439aa83cd22cf0",
+  "file_size": 2167,
+  "description": ""
+}

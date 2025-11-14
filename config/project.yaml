@@ -1,0 +1,27 @@
+project:
+  name: "NeuroMinecraft Genesis"
+  version: "1.0.0"
+  description: "AI agents in Minecraft worlds with evolution and neuroscience"
+
+agents:
+  single:
+    brain_model: "neural_network"
+    learning_rate: 0.001
+  
+  multi:
+    max_agents: 10
+    communication_protocol: "distributed"
+
+worlds:
+  minecraft:
+    server_config: "server.properties"
+    world_seed: "genesis"
+  
+  procgen:
+    size: 1000
+    complexity: 0.8
+
+evolution:
+  population_size: 100
+  mutation_rate: 0.1
+  selection_pressure: 0.8

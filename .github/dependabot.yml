@@ -1,0 +1,266 @@
+# Dependabot自动依赖更新配置
+# 创建时间: 2025-11-14
+# 项目: NeuroMinecraft Genesis v1.0.0+
+
+version: 2
+
+# Python依赖包更新配置
+updates:
+  # Python包依赖
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Shanghai"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "project-maintainer"  # 请替换为实际维护者用户名
+    assignees:
+      - "project-maintainer"  # 请替换为实际维护者用户名
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "python"
+      - "automated"
+    ignore:
+      # 忽略某些不稳定的包
+      - dependency-name: "torch"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "tensorflow"
+        update-types: ["version-update:semver-major"]
+      # 保持主要版本锁定
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  # GitHub Actions依赖更新
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      day: "first-monday"
+      time: "10:00"
+      timezone: "Asia/Shanghai"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "project-maintainer"  # 请替换为实际维护者用户名
+    assignees:
+      - "project-maintainer"  # 请替换为实际维护者用户名
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "automated"
+
+# 具体的包配置（可选）
+# 如果需要为特定包设置不同规则
+dependency-ecosystem:
+  updates:
+    # 安全更新优先级更高
+    - package-ecosystem: "pip"
+      directory: "/"
+      schedule:
+        interval: "daily"  # 安全更新每天检查
+      open-pull-requests-limit: 20
+      labels:
+        - "security"
+        - "dependencies"
+        - "automated"
+      # 只处理安全相关更新
+      allow:
+        - dependency-type: "direct"
+          update-type: "security"
+        - dependency-type: "indirect"
+          update-type: "security"
+
+# 更新策略配置
+registries:
+  # 可以配置私有registry（如果需要）
+  # private-pypi:
+  #   type: python-index
+  #   url: https://private-pypi.example.com
+  #   username: ${{secrets.PRIVATE_PYPI_USERNAME}}
+  #   password: ${{secrets.PRIVATE_PYPI_PASSWORD}}
+  #   primary: true
+
+# 版本约束配置
+version-strategy:
+  # 自动合并小版本和补丁版本更新
+  auto-merge-strategy:
+    minor: "auto-merge"
+    patch: "auto-merge"
+  # 主要版本更新需要人工审核
+  major: "manual-review"
+
+# PR模板配置
+pull-request-templates:
+  dependencies:
+    title: "🤖 自动依赖更新: {dependency}"
+    body: |
+      ## 📦 依赖更新
+      
+      **包**: {dependency}  
+      **版本**: {version} → {new-version}  
+      **类型**: {update-type}  
+      **安全**: {vulnerability}  
+      
+      ### 📋 变更详情
+      {body}
+      
+      ### 🧪 测试状态
+      - [ ] CI/CD测试通过
+      - [ ] 功能测试完成
+      - [ ] 向后兼容性验证
+      
+      ### 📝 检查清单
+      - [ ] 阅读更新日志
+      - [ ] 检查Breaking Changes
+      - [ ] 更新相关文档
+      - [ ] 测试核心功能
+      
+      ---
+      *此PR由Dependabot自动生成*
+      
+  github-actions:
+    title: "🔄 GitHub Actions更新: {dependency}"
+    body: |
+      ## 🔧 Actions更新
+      
+      **Actions**: {dependency}  
+      **版本**: {version} → {new-version}  
+      
+      ### 📋 更新内容
+      {body}
+      
+      ### ✅ 验证检查
+      - [ ] 测试工作流正常运行
+      - [ ] 无权限相关问题
+      - [ ] 兼容性检查通过
+      
+      ---
+      *此PR由Dependabot自动生成*
+
+# 安全配置
+security:
+  # 安全漏洞警告
+  vulnerability-alerts:
+    enabled: true
+    schedule:
+      interval: "daily"
+    labels:
+      - "security"
+      - "vulnerability"
+    # 立即创建PR处理安全漏洞
+    open-pull-requests-limit: 50
+
+  # 许可证检查
+  license-checker:
+    enabled: true
+    schedule:
+      interval: "weekly"
+    labels:
+      - "license"
+      - "dependencies"
+    # 许可证变更需要审核
+    require-human-review: true
+
+# 监控配置
+monitoring:
+  # 失败通知
+  failure-notifications:
+    enabled: true
+    schedule:
+      interval: "daily"
+    channels:
+      - "security"  # Slack/Teams频道
+      
+  # 更新统计
+  update-statistics:
+    enabled: true
+    schedule:
+      interval: "monthly"
+    report-file: "dependabot-statistics.md"
+
+# 自定义规则
+rules:
+  # 禁止的包列表
+  blocked-packages:
+    - "tensorflow-gpu"  # 使用cpu版本
+    - "torch-cuda"      # 使用cpu版本
+    # 添加其他需要阻止的包
+    
+  # 必须锁定的包版本
+  locked-versions:
+    - package: "torch"
+      version: ">=2.0.0,<3.0.0"
+    - package: "numpy" 
+      version: ">=1.21.0,<2.0.0"
+    - package: "pandas"
+      version: ">=1.5.0,<3.0.0"
+
+# 高级配置示例
+advanced:
+  # 按环境分组
+  environment-groups:
+    production:
+      packages:
+        - "torch"
+        - "tensorflow"
+        - "numpy"
+      update-strategy: "security-first"
+    development:
+      packages:
+        - "pytest"
+        - "black"
+        - "flake8"
+      update-strategy: "latest"
+      
+  # 按风险级别分组
+  risk-groups:
+    low-risk:
+      packages:
+        - "tqdm"
+        - "colorama"
+        - "click"
+      auto-merge: true
+    high-risk:
+      packages:
+        - "torch"
+        - "tensorflow"
+        - "numpy"
+      auto-merge: false
+      require-review: true
+
+# 通知配置
+notifications:
+  # 邮件通知
+  email:
+    enabled: true
+    addresses:
+      - "maintainer@example.com"  # 请替换为实际邮箱
+    frequency: "weekly"
+    include:
+      - "security-updates"
+      - "major-updates"
+      
+  # Slack通知（需要webhook）
+  slack:
+    enabled: false  # 设置为true启用
+    webhook: ${{ secrets.SLACK_WEBHOOK }}
+    channels:
+      - "dependencies"
+    mention:
+      - "project-maintainer"
+      
+  # GitHub通知
+  github:
+    enabled: true
+    reviewers:
+      - "project-maintainer"
+    assignees:
+      - "project-maintainer"

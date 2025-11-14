@@ -1,0 +1,602 @@
+{
+  "DQN": {
+    "Atari Breakout": {
+      "metrics": {
+        "average_reward": 590.9304314036536,
+        "reward_variance": 59.09304314036537,
+        "success_rate": 0.5307242191927884,
+        "total_episodes": 1000,
+        "episode_count": 1000,
+        "exploration_efficiency": 0.55,
+        "compute_efficiency": 0.2777777777777778,
+        "sample_efficiency": 0.921655484845417,
+        "learning_stability": 0.9090909090909091,
+        "convergence_stability": 0.9790035548976388,
+        "performance_variance": 0.0,
+        "convergence_speed": 1.0,
+        "adaptability": 0.8,
+        "knowledge_retention": 0.9,
+        "breakout_score": 746.3904187663132,
+        "pipe_hits": 480,
+        "overall_score": 0.4650084802021941,
+        "performance_index": 0.6349412028286305
+      },
+      "timestamp": "2025-11-13T16:17:28.012022",
+      "history": [
+        {
+          "timestamp": "2025-11-13T16:17:28.012022",
+          "metrics": {
+            "average_reward": 590.9304314036536,
+            "reward_variance": 59.09304314036537,
+            "success_rate": 0.5307242191927884,
+            "total_episodes": 1000,
+            "episode_count": 1000,
+            "exploration_efficiency": 0.55,
+            "compute_efficiency": 0.2777777777777778,
+            "sample_efficiency": 0.921655484845417,
+            "learning_stability": 0.9090909090909091,
+            "convergence_stability": 0.9790035548976388,
+            "performance_variance": 0.0,
+            "convergence_speed": 1.0,
+            "adaptability": 0.8,
+            "knowledge_retention": 0.9,
+            "breakout_score": 746.3904187663132,
+            "pipe_hits": 480,
+            "overall_score": 0.4650084802021941,
+            "performance_index": 0.6349412028286305
+          }
+        }
+      ]
+    },
+    "Minecraft Survival": {
+      "metrics": {
+        "average_reward": 1819.66345884374,
+        "reward_variance": 181.96634588437402,
+        "success_rate": 1.0,
+        "total_episodes": 1000,
+        "episode_count": 1000,
+        "exploration_efficiency": 0.55,
+        "compute_efficiency": 0.2777777777777778,
+        "sample_efficiency": 0.8241423292351944,
+        "learning_stability": 0.9090909090909091,
+        "convergence_stability": 0.9371183551464044,
+        "performance_variance": 0.0,
+        "convergence_speed": 1.0,
+        "adaptability": 0.8,
+        "knowledge_retention": 0.9,
+        "survival_rate": 1.0,
+        "resource_collection_efficiency": 0.85,
+        "average_survival_time": 300.0,
+        "overall_score": 0.5588636363636365,
+        "performance_index": 0.8226515151515152
+      },
+      "timestamp": "2025-11-13T16:17:28.012130",
+      "history": [
+        {
+          "timestamp": "2025-11-13T16:17:28.012130",
+          "metrics": {
+            "average_reward": 1819.66345884374,
+            "reward_variance": 181.96634588437402,
+            "success_rate": 1.0,
+            "total_episodes": 1000,
+            "episode_count": 1000,
+            "exploration_efficiency": 0.55,
+            "compute_efficiency": 0.2777777777777778,
+            "sample_efficiency": 0.8241423292351944,
+            "learning_stability": 0.9090909090909091,
+            "convergence_stability": 0.9371183551464044,
+            "performance_variance": 0.0,
+            "convergence_speed": 1.0,
+            "adaptability": 0.8,
+            "knowledge_retention": 0.9,
+            "survival_rate": 1.0,
+            "resource_collection_efficiency": 0.85,
+            "average_survival_time": 300.0,
+            "overall_score": 0.5588636363636365,
+            "performance_index": 0.8226515151515152
+          }
+        }
+      ]
+    }
+  },
+  "PPO": {
+    "Atari Breakout": {
+      "metrics": {
+        "average_reward": 858.0822731540384,
+        "reward_variance": 85.80822731540384,
+        "success_rate": 0.9304612903760656,
+        "total_episodes": 1000,
+        "episode_count": 1000,
+        "exploration_efficiency": 0.55,
+        "compute_efficiency": 0.2777777777777778,
+        "sample_efficiency": 0.7442233430590861,
+        "learning_stability": 0.9090909090909091,
+        "convergence_stability": 0.9523913335819705,
+        "performance_variance": 0.0,
+        "convergence_speed": 1.0,
+        "adaptability": 0.8,
+        "knowledge_retention": 0.9,
+        "breakout_score": 734.6344259519965,
+        "pipe_hits": 480,
+        "overall_score": 0.5449558944388495,
+        "performance_index": 0.7948360313019415
+      },
+      "timestamp": "2025-11-13T16:17:28.012222",
+      "history": [
+        {
+          "timestamp": "2025-11-13T16:17:28.012222",
+          "metrics": {
+            "average_reward": 858.0822731540384,
+            "reward_variance": 85.80822731540384,
+            "success_rate": 0.9304612903760656,
+            "total_episodes": 1000,
+            "episode_count": 1000,
+            "exploration_efficiency": 0.55,
+            "compute_efficiency": 0.2777777777777778,
+            "sample_efficiency": 0.7442233430590861,
+            "learning_stability": 0.9090909090909091,
+            "convergence_stability": 0.9523913335819705,
+            "performance_variance": 0.0,
+            "convergence_speed": 1.0,
+            "adaptability": 0.8,
+            "knowledge_retention": 0.9,
+            "breakout_score": 734.6344259519965,
+            "pipe_hits": 480,
+            "overall_score": 0.5449558944388495,
+            "performance_index": 0.7948360313019415
+          }
+        }
+      ]
+    },
+    "Minecraft Survival": {
+      "metrics": {
+        "average_reward": 1895.5604322534766,
+        "reward_variance": 189.55604322534768,
+        "success_rate": 1.0,
+        "total_episodes": 1000,
+        "episode_count": 1000,
+        "exploration_efficiency": 0.55,
+        "compute_efficiency": 0.2777777777777778,
+        "sample_efficiency": 0.8640697984984568,
+        "learning_stability": 0.9090909090909091,
+        "convergence_stability": 0.932386344197875,
+        "performance_variance": 0.0,
+        "convergence_speed": 1.0,
+        "adaptability": 0.8,
+        "knowledge_retention": 0.9,
+        "survival_rate": 1.0,
+        "resource_collection_efficiency": 0.85,
+        "average_survival_time": 300.0,
+        "overall_score": 0.5588636363636365,
+        "performance_index": 0.8226515151515152
+      },
+      "timestamp": "2025-11-13T16:17:28.012302",
+      "history": [
+        {
+          "timestamp": "2025-11-13T16:17:28.012302",
+          "metrics": {
+            "average_reward": 1895.5604322534766,
+            "reward_variance": 189.55604322534768,
+            "success_rate": 1.0,
+            "total_episodes": 1000,
+            "episode_count": 1000,
+            "exploration_efficiency": 0.55,
+            "compute_efficiency": 0.2777777777777778,
+            "sample_efficiency": 0.8640697984984568,
+            "learning_stability": 0.9090909090909091,
+            "convergence_stability": 0.932386344197875,
+            "performance_variance": 0.0,
+            "convergence_speed": 1.0,
+            "adaptability": 0.8,
+            "knowledge_retention": 0.9,
+            "survival_rate": 1.0,
+            "resource_collection_efficiency": 0.85,
+            "average_survival_time": 300.0,
+            "overall_score": 0.5588636363636365,
+            "performance_index": 0.8226515151515152
+          }
+        }
+      ]
+    }
+  },
+  "DiscoRL": {
+    "Atari Breakout": {
+      "metrics": {
+        "average_reward": 926.207578657043,
+        "reward_variance": 92.6207578657043,
+        "success_rate": 0.9467078167358431,
+        "total_episodes": 1000,
+        "episode_count": 1000,
+        "exploration_efficiency": 0.55,
+        "compute_efficiency": 0.2777777777777778,
+        "sample_efficiency": 0.7833208240285059,
+        "learning_stability": 0.9090909090909091,
+        "convergence_stability": 0.9699560038430516,
+        "performance_variance": 0.0,
+        "convergence_speed": 1.0,
+        "adaptability": 0.8,
+        "knowledge_retention": 0.9,
+        "breakout_score": 868.7477677339583,
+        "pipe_hits": 480,
+        "overall_score": 0.5482051997108051,
+        "performance_index": 0.8013346418458523
+      },
+      "timestamp": "2025-11-13T16:17:28.012417",
+      "history": [
+        {
+          "timestamp": "2025-11-13T16:17:28.012417",
+          "metrics": {
+            "average_reward": 926.207578657043,
+            "reward_variance": 92.6207578657043,
+            "success_rate": 0.9467078167358431,
+            "total_episodes": 1000,
+            "episode_count": 1000,
+            "exploration_efficiency": 0.55,
+            "compute_efficiency": 0.2777777777777778,
+            "sample_efficiency": 0.7833208240285059,
+            "learning_stability": 0.9090909090909091,
+            "convergence_stability": 0.9699560038430516,
+            "performance_variance": 0.0,
+            "convergence_speed": 1.0,
+            "adaptability": 0.8,
+            "knowledge_retention": 0.9,
+            "breakout_score": 868.7477677339583,
+            "pipe_hits": 480,
+            "overall_score": 0.5482051997108051,
+            "performance_index": 0.8013346418458523
+          }
+        }
+      ]
+    },
+    "Minecraft Survival": {
+      "metrics": {
+        "average_reward": 1764.063253067812,
+        "reward_variance": 176.4063253067812,
+        "success_rate": 1.0,
+        "total_episodes": 1000,
+        "episode_count": 1000,
+        "exploration_efficiency": 0.55,
+        "compute_efficiency": 0.2777777777777778,
+        "sample_efficiency": 0.857411861389346,
+        "learning_stability": 0.9090909090909091,
+        "convergence_stability": 0.8564027866559196,
+        "performance_variance": 0.0,
+        "convergence_speed": 1.0,
+        "adaptability": 0.8,
+        "knowledge_retention": 0.9,
+        "survival_rate": 1.0,
+        "resource_collection_efficiency": 0.85,
+        "average_survival_time": 300.0,
+        "overall_score": 0.5588636363636365,
+        "performance_index": 0.8226515151515152
+      },
+      "timestamp": "2025-11-13T16:17:28.012498",
+      "history": [
+        {
+          "timestamp": "2025-11-13T16:17:28.012498",
+          "metrics": {
+            "average_reward": 1764.063253067812,
+            "reward_variance": 176.4063253067812,
+            "success_rate": 1.0,
+            "total_episodes": 1000,
+            "episode_count": 1000,
+            "exploration_efficiency": 0.55,
+            "compute_efficiency": 0.2777777777777778,
+            "sample_efficiency": 0.857411861389346,
+            "learning_stability": 0.9090909090909091,
+            "convergence_stability": 0.8564027866559196,
+            "performance_variance": 0.0,
+            "convergence_speed": 1.0,
+            "adaptability": 0.8,
+            "knowledge_retention": 0.9,
+            "survival_rate": 1.0,
+            "resource_collection_efficiency": 0.85,
+            "average_survival_time": 300.0,
+            "overall_score": 0.5588636363636365,
+            "performance_index": 0.8226515151515152
+          }
+        }
+      ]
+    }
+  },
+  "A3C": {
+    "Atari Breakout": {
+      "metrics": {
+        "average_reward": 1344.1891155258256,
+        "reward_variance": 134.41891155258256,
+        "success_rate": 1.0,
+        "total_episodes": 1000,
+        "episode_count": 1000,
+        "exploration_efficiency": 0.55,
+        "compute_efficiency": 0.2777777777777778,
+        "sample_efficiency": 0.7537581126255651,
+        "learning_stability": 0.9090909090909091,
+        "convergence_stability": 0.9153850235635361,
+        "performance_variance": 0.0,
+        "convergence_speed": 1.0,
+        "adaptability": 0.8,
+        "knowledge_retention": 0.9,
+        "breakout_score": 856.3226419180573,
+        "pipe_hits": 480,
+        "overall_score": 0.5588636363636365,
+        "performance_index": 0.8226515151515152
+      },
+      "timestamp": "2025-11-13T16:17:28.012576",
+      "history": [
+        {
+          "timestamp": "2025-11-13T16:17:28.012576",
+          "metrics": {
+            "average_reward": 1344.1891155258256,
+            "reward_variance": 134.41891155258256,
+            "success_rate": 1.0,
+            "total_episodes": 1000,
+            "episode_count": 1000,
+            "exploration_efficiency": 0.55,
+            "compute_efficiency": 0.2777777777777778,
+            "sample_efficiency": 0.7537581126255651,
+            "learning_stability": 0.9090909090909091,
+            "convergence_stability": 0.9153850235635361,
+            "performance_variance": 0.0,
+            "convergence_speed": 1.0,
+            "adaptability": 0.8,
+            "knowledge_retention": 0.9,
+            "breakout_score": 856.3226419180573,
+            "pipe_hits": 480,
+            "overall_score": 0.5588636363636365,
+            "performance_index": 0.8226515151515152
+          }
+        }
+      ]
+    },
+    "Minecraft Survival": {
+      "metrics": {
+        "average_reward": 784.532141118493,
+        "reward_variance": 78.4532141118493,
+        "success_rate": 0.8559463337995101,
+        "total_episodes": 1000,
+        "episode_count": 1000,
+        "exploration_efficiency": 0.55,
+        "compute_efficiency": 0.2777777777777778,
+        "sample_efficiency": 0.8591177742232871,
+        "learning_stability": 0.9090909090909091,
+        "convergence_stability": 0.9574066278844507,
+        "performance_variance": 0.0,
+        "convergence_speed": 1.0,
+        "adaptability": 0.8,
+        "knowledge_retention": 0.9,
+        "survival_rate": 1.0,
+        "resource_collection_efficiency": 0.85,
+        "average_survival_time": 300.0,
+        "overall_score": 0.5300529031235385,
+        "performance_index": 0.7650300486713193
+      },
+      "timestamp": "2025-11-13T16:17:28.012652",
+      "history": [
+        {
+          "timestamp": "2025-11-13T16:17:28.012652",
+          "metrics": {
+            "average_reward": 784.532141118493,
+            "reward_variance": 78.4532141118493,
+            "success_rate": 0.8559463337995101,
+            "total_episodes": 1000,
+            "episode_count": 1000,
+            "exploration_efficiency": 0.55,
+            "compute_efficiency": 0.2777777777777778,
+            "sample_efficiency": 0.8591177742232871,
+            "learning_stability": 0.9090909090909091,
+            "convergence_stability": 0.9574066278844507,
+            "performance_variance": 0.0,
+            "convergence_speed": 1.0,
+            "adaptability": 0.8,
+            "knowledge_retention": 0.9,
+            "survival_rate": 1.0,
+            "resource_collection_efficiency": 0.85,
+            "average_survival_time": 300.0,
+            "overall_score": 0.5300529031235385,
+            "performance_index": 0.7650300486713193
+          }
+        }
+      ]
+    }
+  },
+  "Rainbow": {
+    "Atari Breakout": {
+      "metrics": {
+        "average_reward": 1625.4748333879068,
+        "reward_variance": 162.5474833387907,
+        "success_rate": 1.0,
+        "total_episodes": 1000,
+        "episode_count": 1000,
+        "exploration_efficiency": 0.55,
+        "compute_efficiency": 0.2777777777777778,
+        "sample_efficiency": 0.7968836061772828,
+        "learning_stability": 0.9090909090909091,
+        "convergence_stability": 0.9456556185515024,
+        "performance_variance": 0.0,
+        "convergence_speed": 1.0,
+        "adaptability": 0.8,
+        "knowledge_retention": 0.9,
+        "breakout_score": 779.8266487937904,
+        "pipe_hits": 480,
+        "overall_score": 0.5588636363636365,
+        "performance_index": 0.8226515151515152
+      },
+      "timestamp": "2025-11-13T16:17:28.012730",
+      "history": [
+        {
+          "timestamp": "2025-11-13T16:17:28.012730",
+          "metrics": {
+            "average_reward": 1625.4748333879068,
+            "reward_variance": 162.5474833387907,
+            "success_rate": 1.0,
+            "total_episodes": 1000,
+            "episode_count": 1000,
+            "exploration_efficiency": 0.55,
+            "compute_efficiency": 0.2777777777777778,
+            "sample_efficiency": 0.7968836061772828,
+            "learning_stability": 0.9090909090909091,
+            "convergence_stability": 0.9456556185515024,
+            "performance_variance": 0.0,
+            "convergence_speed": 1.0,
+            "adaptability": 0.8,
+            "knowledge_retention": 0.9,
+            "breakout_score": 779.8266487937904,
+            "pipe_hits": 480,
+            "overall_score": 0.5588636363636365,
+            "performance_index": 0.8226515151515152
+          }
+        }
+      ]
+    },
+    "Minecraft Survival": {
+      "metrics": {
+        "average_reward": 555.8342030898771,
+        "reward_variance": 55.58342030898771,
+        "success_rate": 0.4952150918846416,
+        "total_episodes": 1000,
+        "episode_count": 1000,
+        "exploration_efficiency": 0.55,
+        "compute_efficiency": 0.2777777777777778,
+        "sample_efficiency": 0.7780908638249849,
+        "learning_stability": 0.9090909090909091,
+        "convergence_stability": 0.9615680368621083,
+        "performance_variance": 0.0,
+        "convergence_speed": 1.0,
+        "adaptability": 0.8,
+        "knowledge_retention": 0.9,
+        "survival_rate": 1.0,
+        "resource_collection_efficiency": 0.85,
+        "average_survival_time": 300.0,
+        "overall_score": 0.4579066547405647,
+        "performance_index": 0.6207375519053717
+      },
+      "timestamp": "2025-11-13T16:17:28.012801",
+      "history": [
+        {
+          "timestamp": "2025-11-13T16:17:28.012801",
+          "metrics": {
+            "average_reward": 555.8342030898771,
+            "reward_variance": 55.58342030898771,
+            "success_rate": 0.4952150918846416,
+            "total_episodes": 1000,
+            "episode_count": 1000,
+            "exploration_efficiency": 0.55,
+            "compute_efficiency": 0.2777777777777778,
+            "sample_efficiency": 0.7780908638249849,
+            "learning_stability": 0.9090909090909091,
+            "convergence_stability": 0.9615680368621083,
+            "performance_variance": 0.0,
+            "convergence_speed": 1.0,
+            "adaptability": 0.8,
+            "knowledge_retention": 0.9,
+            "survival_rate": 1.0,
+            "resource_collection_efficiency": 0.85,
+            "average_survival_time": 300.0,
+            "overall_score": 0.4579066547405647,
+            "performance_index": 0.6207375519053717
+          }
+        }
+      ]
+    }
+  },
+  "NeuroMinecraftGenesis": {
+    "Atari Breakout": {
+      "metrics": {
+        "average_reward": 983.176089432537,
+        "reward_variance": 98.3176089432537,
+        "success_rate": 1.0,
+        "total_episodes": 1000,
+        "episode_count": 1000,
+        "exploration_efficiency": 0.55,
+        "compute_efficiency": 0.2777777777777778,
+        "sample_efficiency": 0.8014995324487506,
+        "learning_stability": 0.9090909090909091,
+        "convergence_stability": 0.8973899969028767,
+        "performance_variance": 0.0,
+        "convergence_speed": 1.0,
+        "adaptability": 0.8,
+        "knowledge_retention": 0.9,
+        "breakout_score": 720.6098913660721,
+        "pipe_hits": 480,
+        "overall_score": 0.5588636363636365,
+        "performance_index": 0.8226515151515152
+      },
+      "timestamp": "2025-11-13T16:17:28.012877",
+      "history": [
+        {
+          "timestamp": "2025-11-13T16:17:28.012877",
+          "metrics": {
+            "average_reward": 983.176089432537,
+            "reward_variance": 98.3176089432537,
+            "success_rate": 1.0,
+            "total_episodes": 1000,
+            "episode_count": 1000,
+            "exploration_efficiency": 0.55,
+            "compute_efficiency": 0.2777777777777778,
+            "sample_efficiency": 0.8014995324487506,
+            "learning_stability": 0.9090909090909091,
+            "convergence_stability": 0.8973899969028767,
+            "performance_variance": 0.0,
+            "convergence_speed": 1.0,
+            "adaptability": 0.8,
+            "knowledge_retention": 0.9,
+            "breakout_score": 720.6098913660721,
+            "pipe_hits": 480,
+            "overall_score": 0.5588636363636365,
+            "performance_index": 0.8226515151515152
+          }
+        }
+      ]
+    },
+    "Minecraft Survival": {
+      "metrics": {
+        "average_reward": 1189.5153574102292,
+        "reward_variance": 118.95153574102292,
+        "success_rate": 1.0,
+        "total_episodes": 1000,
+        "episode_count": 1000,
+        "exploration_efficiency": 0.55,
+        "compute_efficiency": 0.2777777777777778,
+        "sample_efficiency": 0.9416827116538873,
+        "learning_stability": 0.9090909090909091,
+        "convergence_stability": 0.8963064751318918,
+        "performance_variance": 0.0,
+        "convergence_speed": 1.0,
+        "adaptability": 0.8,
+        "knowledge_retention": 0.9,
+        "survival_rate": 1.0,
+        "resource_collection_efficiency": 0.85,
+        "average_survival_time": 300.0,
+        "overall_score": 0.5588636363636365,
+        "performance_index": 0.8226515151515152
+      },
+      "timestamp": "2025-11-13T16:17:28.012952",
+      "history": [
+        {
+          "timestamp": "2025-11-13T16:17:28.012952",
+          "metrics": {
+            "average_reward": 1189.5153574102292,
+            "reward_variance": 118.95153574102292,
+            "success_rate": 1.0,
+            "total_episodes": 1000,
+            "episode_count": 1000,
+            "exploration_efficiency": 0.55,
+            "compute_efficiency": 0.2777777777777778,
+            "sample_efficiency": 0.9416827116538873,
+            "learning_stability": 0.9090909090909091,
+            "convergence_stability": 0.8963064751318918,
+            "performance_variance": 0.0,
+            "convergence_speed": 1.0,
+            "adaptability": 0.8,
+            "knowledge_retention": 0.9,
+            "survival_rate": 1.0,
+            "resource_collection_efficiency": 0.85,
+            "average_survival_time": 300.0,
+            "overall_score": 0.5588636363636365,
+            "performance_index": 0.8226515151515152
+          }
+        }
+      ]
+    }
+  }
+}

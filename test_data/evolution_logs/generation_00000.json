@@ -1,0 +1,13 @@
+{
+  "generation": 0,
+  "timestamp": "2025-11-13T20:18:12.381124",
+  "population_stats": {
+    "best_fitness": 12.455133693289023,
+    "avg_fitness": 4.425454228870971,
+    "worst_fitness": 1.2472536555357516,
+    "diversity": 2.802062268755296,
+    "species_count": 19
+  },
+  "population_size": 20,
+  "genome_length": 5
+}
