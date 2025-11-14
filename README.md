@@ -8,15 +8,8 @@
 
 **DiscoRL自主算法发现** | **六维认知引擎** | **量子类脑融合** | **三世界集成**
 
-**[快速开始](#5分钟快速体验)** | **[论文](https://arxiv.org/abs/2301.00000)** | **[文档](docs/README.md)** | **[路线图](ROADMAP.md)**
 
-![演示动画](docs/presentations/teaser.gif)
-
-**开发者**: bingdongni | **目标**: 2000+ Stars | **学术突破** | **投资认可**
-
-</div>
-
-**[快速开始](#5分钟快速体验)** | **[论文](https://arxiv.org/abs/2301.00000)** | **[文档](docs/README.md)** | **[路线图](ROADMAP.md)**
+**开发者**: bingdongni | **目标**: 1000+ Stars | **学术突破** | **投资认可**
 
 </div>
 
