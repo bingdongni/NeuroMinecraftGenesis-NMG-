@@ -98,7 +98,7 @@ jobs:
 
     - name: 📤 上传检查报告
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
          name: environment-check-report
          path: environment_report.md
@@ -369,7 +369,7 @@ jobs:
         
     - name: 📤 上传测试报告
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: minecraft-test-report
         path: minecraft_test_report.md
@@ -579,7 +579,7 @@ jobs:
         
     - name: 📤 上传测试报告
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: integration-test-report
         path: integration_report.md
@@ -593,7 +593,7 @@ jobs:
     
     steps:
     - name: 📥 Download所有报告
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       
     - name: 📋 合并测试报告
       run: |
@@ -617,7 +617,7 @@ jobs:
         echo "请查看各个测试任务的artifacts获取详细结果。" >> final_report.md
         
     - name: 📤 上传最终报告
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: final-ci-report
         path: final_report.md
