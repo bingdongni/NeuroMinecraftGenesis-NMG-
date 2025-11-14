@@ -425,7 +425,7 @@ jobs:
               print('✅ Streamlit仪表板可导入') 
           except Exception as e: 
               print(f'⚠️ Streamlit仪表板导入问题: {e}') 
-          PY
+          PY  # 补充此处的闭合标记
         fi
         
     - name: 📱 生成可视化测试报告
