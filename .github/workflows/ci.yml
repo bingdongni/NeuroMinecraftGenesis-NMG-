@@ -56,10 +56,10 @@ jobs:
           echo "⚠️ 未找到 check_environment.py"
         fi
 
+    # 修复：使用 cat <<EOF | python 避免 Shell 语法错误
     - name: 🧪 测试核心导入
       run: |
-        # 使用 Here-Document 语法避免 Shell 引用解析问题
-        python - <<PY_EOF
+        cat <<EOF_ENV | python
         import sys
         sys.path.append('.')
 
@@ -86,7 +86,7 @@ jobs:
             print(f'\n⚠️ {len(failed_modules)} 个模块导入失败')
         else:
             print('\n✅ 所有核心模块导入成功')
-        PY_EOF
+        EOF_ENV
 
     - name: 📊 生成检查报告
       if: always()
@@ -137,12 +137,12 @@ jobs:
     - name: 📦 安装依赖
       run: |
         python -m pip install --upgrade pip
-        # 允许超时更长
         pip install -r requirements.txt --timeout 300 || echo "部分依赖安装失败，继续测试"
         
+    # 修复：使用 cat <<EOF | python 避免 Shell 语法错误
     - name: 🧪 核心功能测试
       run: |
-        python - <<PY_EOF
+        cat <<EOF_MULTI | python
         # 基础库测试
         try:
             import numpy as np
@@ -173,7 +173,7 @@ jobs:
             print(f'Streamlit {streamlit.__version__} - OK')
         except Exception as e:
             print(f'Streamlit - FAIL: {e}')
-        PY_EOF
+        EOF_MULTI
         
     - name: 🖥️ 可视化组件测试
       run: |
@@ -230,8 +230,9 @@ jobs:
             "utils/visualization/streamlit_dashboard.py"
         )
         
+        # 修复：将 paper.jar 更新为实际下载的带版本号的文件名
         optional_files=(
-            "worlds/minecraft/server/paper.jar"
+            "worlds/minecraft/server/paper-1.21.8-60.jar"
             ".github/workflows/ci.yml"
             ".github/dependabot.yml"
             "README.md"
@@ -322,13 +323,10 @@ jobs:
         echo "当前工作目录：$(pwd)"
         ls -la worlds/minecraft/server/
 
-    # 修复：确保 JAR 文件存在，如果不存在则下载
     - name: ⬇️ 下载PaperMC服务器核心 (1.21 Build 60)
       run: |
         JAR_DIR="worlds/minecraft/server"
-        # 目标文件名与用户文件中使用的文件名保持一致
         TARGET_JAR="paper-1.21.8-60.jar"
-        # 实际下载 Paper 1.21 Build 60，并重命名
         DOWNLOAD_URL="https://api.papermc.io/v2/projects/paper/versions/1.21/builds/60/downloads/paper-1.21-60.jar"
         
         mkdir -p "$JAR_DIR"
@@ -358,7 +356,6 @@ jobs:
       run: |
         cd worlds/minecraft/server
 
-        # 仅在不存在时创建 server.properties，避免覆盖已有配置
         if [ ! -f "server.properties" ]; then
           printf 'server-name=NeuroMinecraft\nserver-port=25565\nmax-players=10\nmotd=NeuroMinecraft Genesis Test Server\nonline-mode=false\nallow-nether=true\nallow-flight=false\nallow-cheats=true\nmax-world-size=10000\nannounce-player-achievements=true\nenable-query=true\nenable-rcon=false\nbroadcast-rcon-to-ops=true\nforce-gamemode=false\nforce-difficulty-locked=false\npvp=true\ngenerate-structures=true\nop-permission-level=4\nresource-pack=\nresource-pack-prompt=\nresource-pack-id=\nsync-player-chunk=true\nfunction-permission-level=2\ninitial-enabled-packs=vanilla\n' > server.properties
           echo "✅ 创建server.properties"
@@ -366,7 +363,6 @@ jobs:
           echo "✅ server.properties 已存在，跳过创建"
         fi
         
-        # 确保EULA被接受（仅在不存在时创建）
         if [ ! -f "eula.txt" ]; then
           echo "eula=true" > eula.txt
           echo "✅ 自动同意EULA"
@@ -436,19 +432,19 @@ jobs:
             fi
         done
         
+    # 修复：使用 cat <<EOF | python 避免 Shell 语法错误
     - name: 🧪 测试Streamlit配置
       run: |
-        # 修复：使用 Here-Document 语法确保 Shell 脚本正确解析
         if [ -f "utils/visualization/streamlit_dashboard.py" ]; then
-          python - <<PY_EOF
-          import sys
-          sys.path.append('utils/visualization')
-          try:
-              import streamlit_dashboard
-              print('✅ Streamlit仪表板可导入')
-          except Exception as e:
-              print(f'⚠️ Streamlit仪表板导入问题: {e}')
-          PY_EOF
+          cat <<EOF_VIZ | python
+import sys
+sys.path.append('utils/visualization')
+try:
+    import streamlit_dashboard
+    print('✅ Streamlit仪表板可导入')
+except Exception as e:
+    print(f'⚠️ Streamlit仪表板导入问题: {e}')
+EOF_VIZ
         fi
         
     - name: 📱 生成可视化测试报告
@@ -550,10 +546,10 @@ jobs:
           echo "⚠️ quickstart.py不存在"
         fi
         
+    # 修复：使用 cat <<EOF | python 避免 Shell 语法错误
     - name: 🧪 测试导入核心模块
       run: |
-        # 修复：使用 Here-Document 语法确保 Shell 脚本正确解析
-        python - <<PY_EOF
+        cat <<EOF_INT | python
         print('🔍 测试核心模块集成...')
         
         # 测试项目路径
@@ -592,7 +588,7 @@ jobs:
         except Exception as e:
             print(f'❌ 集成测试失败: {e}')
             sys.exit(1)
-        PY_EOF
+        EOF_INT
         
     - name: 📊 生成集成测试报告
       if: always()
