@@ -336,48 +336,13 @@ jobs:
       run: |
         cd worlds/minecraft/server
         
-        # 创建server.properties
-        if [ ! -f "server.properties" ]; then
-          cat > server.properties << 'SERVER_EOF'
-server-name=NeuroMinecraft
-server-port=25565
-max-players=10
-motd=NeuroMinecraft Genesis Test Server
-online-mode=false
-white-list=false
-allow-nether=true
-allow-flight=false
-allow-cheats=true
-max-world-size=10000
-white-list=false
-announce-player-achievements=true
-enable-query=true
-enable-rcon=false
-broadcast-rcon-to-ops=true
-force-gamemode=false
-force-difficulty-locked=false
-pvp=true
-generate-structures=true
-op-permission-level=4
-resource-pack=
-resource-pack-prompt=
-resource-pack-id=
-sync-player-chunk=true
-function-permission-level=2
-initial-enabled-packs=vanilla
-broadcast-rcon-to-ops=true
-server-name=NeuroMinecraft
-SERVER_EOF
-          echo "✅ 创建server.properties"
-        fi
+        # 使用printf方式创建server.properties，避免YAML解析问题
+        printf 'server-name=NeuroMinecraft\nserver-port=25565\nmax-players=10\nmotd=NeuroMinecraft Genesis Test Server\nonline-mode=false\nallow-nether=true\nallow-flight=false\nallow-cheats=true\nmax-world-size=10000\nannounce-player-achievements=true\nenable-query=true\nenable-rcon=false\nbroadcast-rcon-to-ops=true\nforce-gamemode=false\nforce-difficulty-locked=false\npvp=true\ngenerate-structures=true\nop-permission-level=4\nresource-pack=\nresource-pack-prompt=\nresource-pack-id=\nsync-player-chunk=true\nfunction-permission-level=2\ninitial-enabled-packs=vanilla\nbroadcast-rcon-to-ops=true\n' > server.properties
+        echo "✅ 创建server.properties"
         
         # 确保EULA被接受
-        if [ ! -f "eula.txt" ]; then
-          echo "eula=true" > eula.txt
-          echo "✅ 自动同意EULA"
-        else
-          echo "✅ EULA文件已存在"
-        fi
+        echo "eula=true" > eula.txt
+        echo "✅ 自动同意EULA"
         
     - name: 🚀 测试服务器启动
       run: |
@@ -408,12 +373,6 @@ SERVER_EOF
     needs: environment-check
     timeout-minutes: 10
     
-    services:
-      streamlit:
-        image: python:3.10-slim
-        ports:
-          - 8501:8501
-          
     steps:
     - name: 📥 Checkout代码
       uses: actions/checkout@v4
@@ -621,15 +580,7 @@ SERVER_EOF
   final-report:
     name: 📋 最终报告
     runs-on: ubuntu-latest
-    needs: [
-      environment-check,
-      multi-version-test, 
-      structure-check,
-      minecraft-server-test,
-      visualization-test,
-      code-quality,
-      integration-test
-    ]
+    needs: [environment-check, multi-version-test, structure-check, minecraft-server-test, visualization-test, code-quality, integration-test]
     if: always()
     
     steps:
