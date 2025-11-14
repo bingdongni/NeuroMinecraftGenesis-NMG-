@@ -56,37 +56,35 @@ jobs:
           echo "⚠️ 未找到 check_environment.py"
         fi
 
-    # 修复：使用 cat <<EOF | python 避免 Shell 语法错误
+    # 修复：使用 python -c 模式，避免 Here-Document 语法错误
     - name: 🧪 测试核心导入
       run: |
-        cat <<EOF_ENV | python
-        import sys
-        sys.path.append('.')
+        python -c "
+import sys;
+sys.path.append('.');
+core_modules = [
+    'utils.brain_engine',
+    'agents.evolution.disco_rl_agent',
+    'utils.quantum_simulator.quantum_brain',
+    'worlds.integrated_environment'
+];
+failed_modules = [];
+for module in core_modules:
+    try:
+        __import__(module);
+        print(f'✅ {module}');
+    except ImportError as e:
+        print(f'❌ {module}: {e}');
+        failed_modules.append(module);
+    except Exception as e:
+        print(f'⚠️ {module}: {str(e)[:100]}');
 
-        # 测试核心模块
-        core_modules = [
-            'utils.brain_engine',
-            'agents.evolution.disco_rl_agent',
-            'utils.quantum_simulator.quantum_brain',
-            'worlds.integrated_environment'
-        ]
-
-        failed_modules = []
-        for module in core_modules:
-            try:
-                __import__(module)
-                print(f'✅ {module}')
-            except ImportError as e:
-                print(f'❌ {module}: {e}')
-                failed_modules.append(module)
-            except Exception as e:
-                print(f'⚠️ {module}: {str(e)[:100]}')
-
-        if failed_modules:
-            print(f'\n⚠️ {len(failed_modules)} 个模块导入失败')
-        else:
-            print('\n✅ 所有核心模块导入成功')
-        EOF_ENV
+if failed_modules:
+    print(f'\n⚠️ {len(failed_modules)} 个模块导入失败');
+    sys.exit(1);
+else:
+    print('\n✅ 所有核心模块导入成功');
+"
 
     - name: 📊 生成检查报告
       if: always()
@@ -139,68 +137,69 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt --timeout 300 || echo "部分依赖安装失败，继续测试"
         
-    # 修复：使用 cat <<EOF | python 避免 Shell 语法错误
+    # 修复：使用 python -c 模式，避免 Here-Document 语法错误
     - name: 🧪 核心功能测试
       run: |
-        cat <<EOF_MULTI | python
-        # 基础库测试
-        try:
-            import numpy as np
-            print(f'NumPy {np.__version__} - OK')
-        except Exception as e:
-            print(f'NumPy - FAIL: {e}')
-            
-        try:
-            import pandas as pd
-            print(f'Pandas {pd.__version__} - OK')
-        except Exception as e:
-            print(f'Pandas - FAIL: {e}')
-            
-        try:
-            import matplotlib
-            print(f'Matplotlib {matplotlib.__version__} - OK')
-        except Exception as e:
-            print(f'Matplotlib - FAIL: {e}')
-            
-        try:
-            import torch
-            print(f'PyTorch {torch.__version__} - OK')
-        except Exception as e:
-            print(f'PyTorch - FAIL: {e}')
-            
-        try:
-            import streamlit
-            print(f'Streamlit {streamlit.__version__} - OK')
-        except Exception as e:
-            print(f'Streamlit - FAIL: {e}')
-        EOF_MULTI
+        python -c "
+import sys;
+# 基础库测试
+try:
+    import numpy as np;
+    print(f'NumPy {np.__version__} - OK');
+except Exception as e:
+    print(f'NumPy - FAIL: {e}');
+    
+try:
+    import pandas as pd;
+    print(f'Pandas {pd.__version__} - OK');
+except Exception as e:
+    print(f'Pandas - FAIL: {e}');
+    
+try:
+    import matplotlib;
+    print(f'Matplotlib {matplotlib.__version__} - OK');
+except Exception as e:
+    print(f'Matplotlib - FAIL: {e}');
+    
+try:
+    import torch;
+    print(f'PyTorch {torch.__version__} - OK');
+except Exception as e:
+    print(f'PyTorch - FAIL: {e}');
+    
+try:
+    import streamlit;
+    print(f'Streamlit {streamlit.__version__} - OK');
+except Exception as e:
+    print(f'Streamlit - FAIL: {e}');
+"
         
     - name: 🖥️ 可视化组件测试
       run: |
         python -c "
         # 可视化库测试
-        visualization_libs = ['plotly', 'bokeh', 'seaborn']
+        visualization_libs = ['plotly', 'bokeh', 'seaborn'];
         for lib in visualization_libs:
             try:
-                module = __import__(lib)
-                version = getattr(module, '__version__', 'unknown')
-                print(f'{lib} {version} - OK')
+                module = __import__(lib);
+                version = getattr(module, '__version__', 'unknown');
+                print(f'{lib} {version} - OK');
             except Exception as e:
-                print(f'{lib} - FAIL: {e}')
+                print(f'{lib} - FAIL: {e}');
         "
         
     - name: 🌐 网络组件测试
       run: |
         python -c "
         # 网络库测试
-        network_libs = ['requests', 'websocket', 'websockets']
+        network_libs = ['requests', 'websocket', 'websockets'];
         for lib in network_libs:
             try:
-                module = __import__(lib)
-                version = getattr(module, '__version__', 'unknown')
-                print(f'{lib} {version} - OK')
+                module = __import__(lib);
+                version = getattr(module, '__version__', 'unknown');
+                print(f'{lib} {version} - OK');
             except Exception as e:
-                print(f'{lib} - FAIL: {e}')
+                print(f'{lib} - FAIL: {e}');
         "
 
   # 项目结构完整性检查
@@ -230,7 +229,7 @@ jobs:
             "utils/visualization/streamlit_dashboard.py"
         )
         
-        # 修复：将 paper.jar 更新为实际下载的带版本号的文件名
+        # 检查文件列表已更新以匹配下载的 jar 名称
         optional_files=(
             "worlds/minecraft/server/paper-1.21.8-60.jar"
             ".github/workflows/ci.yml"
@@ -432,19 +431,19 @@ jobs:
             fi
         done
         
-    # 修复：使用 cat <<EOF | python 避免 Shell 语法错误
+    # 修复：使用 python -c 模式，避免 Here-Document 语法错误
     - name: 🧪 测试Streamlit配置
       run: |
         if [ -f "utils/visualization/streamlit_dashboard.py" ]; then
-          cat <<EOF_VIZ | python
-import sys
-sys.path.append('utils/visualization')
+          python -c "
+import sys;
+sys.path.append('utils/visualization');
 try:
-    import streamlit_dashboard
-    print('✅ Streamlit仪表板可导入')
+    import streamlit_dashboard;
+    print('✅ Streamlit仪表板可导入');
 except Exception as e:
-    print(f'⚠️ Streamlit仪表板导入问题: {e}')
-EOF_VIZ
+    print(f'⚠️ Streamlit仪表板导入问题: {e}');
+"
         fi
         
     - name: 📱 生成可视化测试报告
@@ -546,49 +545,40 @@ EOF_VIZ
           echo "⚠️ quickstart.py不存在"
         fi
         
-    # 修复：使用 cat <<EOF | python 避免 Shell 语法错误
+    # 修复：使用 python -c 模式，避免 Here-Document 语法错误
     - name: 🧪 测试导入核心模块
       run: |
-        cat <<EOF_INT | python
-        print('🔍 测试核心模块集成...')
-        
-        # 测试项目路径
-        import sys
-        from pathlib import Path
-        
-        project_root = Path.cwd()
-        sys.path.insert(0, str(project_root))
-        
-        # 测试模块导入
+        python -c "
+import sys;
+from pathlib import Path;
+project_root = Path.cwd();
+sys.path.insert(0, str(project_root));
+print('🔍 测试核心模块集成...');
+try:
+    import numpy as np;
+    print(f'✅ NumPy {np.__version__}');
+    
+    import torch;
+    print(f'✅ PyTorch {torch.__version__}');
+    
+    # 测试项目模块
+    core_modules = [
+        'utils.brain_engine',
+        'agents.evolution.disco_rl_agent',
+        'utils.quantum_simulator.quantum_brain'
+    ];
+    
+    for module in core_modules:
         try:
-            # 基础模块
-            import numpy as np
-            print(f'✅ NumPy {np.__version__}')
+            __import__(module);
+            print(f'✅ {module}');
+        except ImportError:
+            print(f'⚠️ {module} (导入失败，可能需要完整依赖)');
             
-            import pandas as pd
-            print(f'✅ Pandas {pd.__version__}')
-            
-            import torch
-            print(f'✅ PyTorch {torch.__version__}')
-            
-            # 项目模块（如果有的话）
-            core_modules = [
-                'utils.brain_engine',
-                'agents.evolution.disco_rl_agent',
-                'utils.quantum_simulator.quantum_brain'
-            ]
-            
-            for module in core_modules:
-                try:
-                    __import__(module)
-                    print(f'✅ {module}')
-                except ImportError:
-                    print(f'⚠️ {module} (导入失败，可能需要完整依赖)')
-                    
-        except Exception as e:
-            print(f'❌ 集成测试失败: {e}')
-            sys.exit(1)
-        EOF_INT
+except Exception as e:
+    print(f'❌ 集成测试失败: {e}');
+    sys.exit(1);
+"
         
     - name: 📊 生成集成测试报告
       if: always()
