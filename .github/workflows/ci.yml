@@ -417,15 +417,16 @@ jobs:
     - name: 🧪 测试Streamlit配置
       run: |
         if [ -f "utils/visualization/streamlit_dashboard.py" ]; then
-          python -c "
-          import sys
-          sys.path.append('utils/visualization')
-          try:
-              import streamlit_dashboard
-              print('✅ Streamlit仪表板可导入')
-          except Exception as e:
-              print(f'⚠️ Streamlit仪表板导入问题: {e}')
-        "
+          python <<'PY' 
+          import sys 
+          sys.path.append('utils/visualization') 
+          try: 
+              import streamlit_dashboard 
+              print('✅ Streamlit仪表板可导入') 
+          except Exception as e: 
+              print(f'⚠️ Streamlit仪表板导入问题: {e}') 
+          PY
+        fi
         
     - name: 📱 生成可视化测试报告
       if: always()
