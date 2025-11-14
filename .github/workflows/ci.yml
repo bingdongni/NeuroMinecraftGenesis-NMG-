@@ -320,16 +320,14 @@ jobs:
         mkdir -p worlds/minecraft/server
         echo "Minecraft服务器目录已准备"
         
-    - name: 📥 下载PaperMC (如果需要)
+    - name: 🔍 检查 paper.jar 文件
       run: |
-        PAPER_JAR="worlds/minecraft/server/paper.jar"
-        if [ ! -f "$PAPER_JAR" ]; then
-          echo "📥 下载PaperMC服务器..."
-          curl --retry 3 --fail -L -o "$PAPER_JAR" \
-            "https://fill-data.papermc.io/v1/objects/234a9b32098100c6fc116664d64e36ccdb58b5b649af0f80bcccb08b0255eaea/paper-1.20.1-196.jar"
-          echo "✅ PaperMC下载完成"
+        PAPER_JAR="worlds/minecraft/server/paper-1.21.8-60.jar"
+        if [ -f "$PAPER_JAR" ]; then
+          echo "✅ paper.jar 文件已存在"
         else
-          echo "✅ PaperMC文件已存在"
+          echo "❌ paper.jar 文件缺失"
+          exit 1  # 如果文件缺失，则退出
         fi
         
     - name: ⚙️ 配置服务器
@@ -357,7 +355,7 @@ jobs:
         cd worlds/minecraft/server
         
         echo "🔧 测试PaperMC启动 (60秒超时)..."
-        timeout 60s java -Xms1G -Xmx1G -XX:+UseG1GC -jar paper.jar --nogui || echo "⏰ 服务器启动测试完成"
+        timeout 60s java -Xms1G -Xmx1G -XX:+UseG1GC -jar paper-1.21.8-60.jar --nogui || echo "⏰ 服务器启动测试完成"
         
     - name: 📊 测试结果
       if: always()
