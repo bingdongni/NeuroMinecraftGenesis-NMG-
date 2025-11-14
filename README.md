@@ -1,6 +1,6 @@
 # NeuroMinecraft Genesis (NMG)
 
-## 🧠 AGI自主进化系统
+## 🧠 AI自主进化系统
 
 **开发者：** bingdongni  
 **版本：** v1.0  
@@ -8,15 +8,15 @@
 
 ### 🌟 项目简介
 
-NeuroMinecraft Genesis 是一个革命性的AGI自主进化系统，结合了DiscoRL算法、六维认知引擎、量子-类脑计算和多智能体协同进化。
+NeuroMinecraft Genesis 是一个革命性的AI自主进化系统，参考了DiscoRL算法、六维认知引擎、量子-类脑计算和多智能体协同进化。
 
 ### ✨ 核心特性
 
 - 🔬 **DiscoRL自主算法发现**：无需预定义，让AI自己发现最优算法
 - 🧠 **六维认知引擎**：记忆、思维、创造、观察、注意力、想象
-- ⚛️ **量子-类脑融合**：100K神经元脉冲网络 + 量子电路
+- ⚛️ **量子-类脑融合**：神经元脉冲网络 + 量子电路
 - 🌍 **三世界集成**：真实世界 + 虚拟世界 + 游戏世界
-- 🤝 **多智能体协同进化**：3000+智能体社会模拟
+- 🤝 **多智能体协同进化**：多智能体社会模拟
 - 📚 **终身学习系统**：持续学习避免灾难性遗忘
 
 ### 🚀 快速开始
@@ -58,7 +58,7 @@ NeuroMinecraft Genesis 是一个革命性的AGI自主进化系统，结合了Dis
 ### 📧 联系我们
 
 - **开发者**：bingdongni
-- **GitHub**：[@your-username](https://github.com/your-username)
+- **GitHub**：[@bingdongni](https://github.com/bingdongni)
 
 ---
 
