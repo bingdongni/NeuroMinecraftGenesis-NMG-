@@ -232,7 +232,6 @@ jobs:
         )
         
         optional_files=(
-            "worlds/minecraft/server/paper.jar"
             "worlds/minecraft/server/paper-1.21.8-60.jar"
             ".github/workflows/ci.yml"
             ".github/dependabot.yml"
