@@ -437,7 +437,7 @@ jobs:
         
     - name: 📤 上传测试报告
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: visualization-test-report
         path: visualization_test_report.md
@@ -491,7 +491,7 @@ jobs:
         
     - name: 📤 上传质量报告
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: code-quality-report
         path: quality_report.md
