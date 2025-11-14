@@ -308,28 +308,28 @@ jobs:
     steps:
     - name: 📥 Checkout代码
       uses: actions/checkout@v4
-      
+    
     - name: ☕ 安装Java 17
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
         java-version: '17'
         
-    - name: 📁 准备Minecraft目录
+    - name: 📂 打印当前工作目录
       run: |
-        mkdir -p worlds/minecraft/server
-        echo "Minecraft服务器目录已准备"
-        
-    - name: 🔍 检查 paper.jar 文件
+        echo "当前工作目录：$(pwd)"
+        ls -la worlds/minecraft/server/
+
+    - name: 🔍 检查 paper-1.21.8-60.jar 文件
       run: |
         PAPER_JAR="worlds/minecraft/server/paper-1.21.8-60.jar"
         if [ -f "$PAPER_JAR" ]; then
-          echo "✅ paper.jar 文件已存在"
+          echo "✅ paper-1.21.8-60.jar 文件已存在"
         else
-          echo "❌ paper.jar 文件缺失"
+          echo "❌ paper-1.21.8-60.jar 文件缺失"
           exit 1  # 如果文件缺失，则退出
         fi
-        
+
     - name: ⚙️ 配置服务器
       run: |
         cd worlds/minecraft/server
@@ -349,7 +349,7 @@ jobs:
         else
           echo "✅ EULA文件已存在"
         fi
-        
+
     - name: 🚀 测试服务器启动
       run: |
         cd worlds/minecraft/server
@@ -363,7 +363,7 @@ jobs:
         echo "## 🎮 Minecraft服务器测试结果" > minecraft_test_report.md
         echo "- 状态: ${{ job.status }}" >> minecraft_test_report.md
         echo "- Java版本: $(java -version 2>&1 | head -n 1)" >> minecraft_test_report.md
-        echo "- PaperMC: $(ls -la worlds/minecraft/server/paper.jar 2>/dev/null | awk '{print $5}' || echo '缺失')" >> minecraft_test_report.md
+        echo "- PaperMC: $(ls -la worlds/minecraft/server/paper-1.21.8-60.jar 2>/dev/null | awk '{print $5}' || echo '缺失')" >> minecraft_test_report.md
         
     - name: 📤 上传测试报告
       if: always()
