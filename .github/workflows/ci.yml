@@ -17,16 +17,16 @@ jobs:
     name: 🔍 环境检查
     runs-on: ubuntu-latest
     timeout-minutes: 10
-
+    
     steps:
     - name: 📥 Checkout代码
       uses: actions/checkout@v4
-
+      
     - name: 🐍 设置Python
       uses: actions/setup-python@v4
       with:
         python-version: ${{ env.PYTHON_VERSION }}
-
+        
     - name: 📦 缓存pip依赖
       uses: actions/cache@v3
       with:
@@ -35,11 +35,11 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
           ${{ runner.os }}-pip-test-
-
+          
     - name: 🔄 更新pip
       run: |
         python -m pip install --upgrade pip
-
+        
     - name: 📋 检查requirements.txt
       run: |
         if [ ! -f "requirements.txt" ]; then
@@ -47,7 +47,7 @@ jobs:
           exit 1
         fi
         echo "✅ requirements.txt 文件存在"
-
+        
     - name: 🔍 运行环境检查脚本
       run: |
         if [ -f "check_environment.py" ]; then
@@ -55,38 +55,38 @@ jobs:
         else
           echo "⚠️ 未找到 check_environment.py"
         fi
-
+        
     - name: 🧪 测试核心导入
       run: |
-        python << 'PY_EOF'
-import sys
-sys.path.append('.')
-
-# 测试核心模块
-core_modules = [
-    'utils.brain_engine',
-    'agents.evolution.disco_rl_agent',
-    'utils.quantum_simulator.quantum_brain',
-    'worlds.integrated_environment'
-]
-
-failed_modules = []
-for module in core_modules:
-    try:
-        __import__(module)
-        print(f'✅ {module}')
-    except ImportError as e:
-        print(f'❌ {module}: {e}')
-        failed_modules.append(module)
-    except Exception as e:
-        print(f'⚠️ {module}: {str(e)[:100]}')
-
-if failed_modules:
-    print(f'\n⚠️ {len(failed_modules)} 个模块导入失败')
-else:
-    print('\n✅ 所有核心模块导入成功')
-PY_EOF
-
+        python -c "
+        import sys
+        sys.path.append('.')
+        
+        # 测试核心模块
+        core_modules = [
+            'utils.brain_engine',
+            'agents.evolution.disco_rl_agent',
+            'utils.quantum_simulator.quantum_brain',
+            'worlds.integrated_environment'
+        ]
+        
+        failed_modules = []
+        for module in core_modules:
+            try:
+                __import__(module)
+                print(f'✅ {module}')
+            except ImportError as e:
+                print(f'❌ {module}: {e}')
+                failed_modules.append(module)
+            except Exception as e:
+                print(f'⚠️ {module}: {str(e)[:100]}')
+        
+        if failed_modules:
+            print(f'\\n⚠️ {len(failed_modules)} 个模块导入失败')
+        else:
+            print('\\n✅ 所有核心模块导入成功')
+        "
+        
     - name: 📊 生成检查报告
       if: always()
       run: |
@@ -95,7 +95,7 @@ PY_EOF
         echo "- 平台: $(uname -a)" >> environment_report.md
         echo "- 时间: $(date)" >> environment_report.md
         echo "- 状态: ${{ job.status }}" >> environment_report.md
-
+        
     - name: 📤 上传检查报告
       if: always()
       uses: actions/upload-artifact@v4
@@ -109,22 +109,22 @@ PY_EOF
     runs-on: ${{ matrix.os }}
     needs: environment-check
     timeout-minutes: 20
-
+    
     strategy:
       fail-fast: false
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.11"]
         os: [ubuntu-latest]
-
+        
     steps:
     - name: 📥 Checkout代码
       uses: actions/checkout@v4
-
+      
     - name: 🐍 设置Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-
+        
     - name: 📦 缓存pip依赖
       uses: actions/cache@v3
       with:
@@ -132,76 +132,76 @@ PY_EOF
         key: ${{ runner.os }}-py${{ matrix.python-version }}-pip-${{ hashFiles('**/requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-py${{ matrix.python-version }}-pip-
-
+          
     - name: 📦 安装依赖
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt --timeout 300 || echo "部分依赖安装失败，继续测试"
-
+        
     - name: 🧪 核心功能测试
       run: |
-        python << 'PY_EOF'
-# 基础库测试
-try:
-    import numpy as np
-    print(f'NumPy {np.__version__} - OK')
-except Exception as e:
-    print(f'NumPy - FAIL: {e}')
-
-try:
-    import pandas as pd
-    print(f'Pandas {pd.__version__} - OK')
-except Exception as e:
-    print(f'Pandas - FAIL: {e}')
-
-try:
-    import matplotlib
-    print(f'Matplotlib {matplotlib.__version__} - OK')
-except Exception as e:
-    print(f'Matplotlib - FAIL: {e}')
-
-try:
-    import torch
-    print(f'PyTorch {torch.__version__} - OK')
-except Exception as e:
-    print(f'PyTorch - FAIL: {e}')
-
-try:
-    import streamlit
-    print(f'Streamlit {streamlit.__version__} - OK')
-except Exception as e:
-    print(f'Streamlit - FAIL: {e}')
-PY_EOF
-
+        python -c "
+        # 基础库测试
+        try:
+            import numpy as np
+            print(f'NumPy {np.__version__} - OK')
+        except Exception as e:
+            print(f'NumPy - FAIL: {e}')
+            
+        try:
+            import pandas as pd
+            print(f'Pandas {pd.__version__} - OK')
+        except Exception as e:
+            print(f'Pandas - FAIL: {e}')
+            
+        try:
+            import matplotlib
+            print(f'Matplotlib {matplotlib.__version__} - OK')
+        except Exception as e:
+            print(f'Matplotlib - FAIL: {e}')
+            
+        try:
+            import torch
+            print(f'PyTorch {torch.__version__} - OK')
+        except Exception as e:
+            print(f'PyTorch - FAIL: {e}')
+            
+        try:
+            import streamlit
+            print(f'Streamlit {streamlit.__version__} - OK')
+        except Exception as e:
+            print(f'Streamlit - FAIL: {e}')
+        "
+        
     - name: 🖥️ 可视化组件测试
       run: |
         python -c "
-from importlib import import_module
-
-visualization_libs = ['plotly', 'bokeh', 'seaborn']
-for lib in visualization_libs:
-    try:
-        module = import_module(lib)
-        version = getattr(module, '__version__', 'unknown')
-        print(f'{lib} {version} - OK')
-    except Exception as e:
-        print(f'{lib} - FAIL: {e}')
-"
-
+        from importlib import import_module
+        
+        visualization_libs = ['plotly', 'bokeh', 'seaborn']
+        for lib in visualization_libs:
+            try:
+                module = import_module(lib)
+                version = getattr(module, '__version__', 'unknown')
+                print(f'{lib} {version} - OK')
+            except Exception as e:
+                print(f'{lib} - FAIL: {e}')
+        "
+        
     - name: 🌐 网络组件测试
       run: |
         python -c "
-from importlib import import_module
-
-network_libs = ['requests', 'websocket', 'websockets']
-for lib in network_libs:
-    try:
-        module = import_module(lib)
-        version = getattr(module, '__version__', 'unknown')
-        print(f'{lib} {version} - OK')
-    except Exception as e:
-        print(f'{lib} - FAIL: {e}')
-"
+        from importlib import import_module
+        
+        network_libs = ['requests', 'websocket', 'websockets']
+        for lib in network_libs:
+            try:
+                module = import_module(lib)
+                version = getattr(module, '__version__', 'unknown')
+                print(f'{lib} {version} - OK')
+            except Exception as e:
+                print(f'{lib} - FAIL: {e}')
+        "
 
   # 项目结构完整性检查
   structure-check:
@@ -209,16 +209,16 @@ for lib in network_libs:
     runs-on: ubuntu-latest
     needs: environment-check
     timeout-minutes: 5
-
+    
     steps:
     - name: 📥 Checkout代码
       uses: actions/checkout@v4
-
+      
     - name: 📋 检查必需文件
       run: |
         echo "🔍 检查项目结构..."
         echo "当前目录: $(pwd)"
-
+        
         required_files=(
             "requirements.txt"
             "quickstart.py"
@@ -230,18 +230,19 @@ for lib in network_libs:
             "worlds/integrated_environment.py"
             "utils/visualization/streamlit_dashboard.py"
         )
-
+        
         optional_files=(
+            "worlds/minecraft/server/paper.jar"
             "worlds/minecraft/server/paper-1.21.8-60.jar"
             ".github/workflows/ci.yml"
             ".github/dependabot.yml"
             "README.md"
             "LICENSE"
         )
-
+        
         missing_required=0
         missing_optional=0
-
+        
         echo ""
         echo "📄 必需文件检查:"
         for file in "${required_files[@]}"; do
@@ -252,7 +253,7 @@ for lib in network_libs:
                 ((missing_required++))
             fi
         done
-
+        
         echo ""
         echo "📄 可选文件检查:"
         for file in "${optional_files[@]}"; do
@@ -263,7 +264,7 @@ for lib in network_libs:
                 ((missing_optional++))
             fi
         done
-
+        
         echo ""
         if [ $missing_required -eq 0 ]; then
             echo "✅ 所有必需文件都存在"
@@ -271,17 +272,17 @@ for lib in network_libs:
             echo "❌ 缺少 $missing_required 个必需文件"
             exit 1
         fi
-
+        
         if [ $missing_optional -gt 0 ]; then
             echo "⚠️ 缺少 $missing_optional 个可选文件"
         else
             echo "✅ 所有推荐文件都存在"
         fi
-
+        
     - name: 🗂️ 检查目录结构
       run: |
         echo "📂 检查目录结构..."
-
+        
         required_dirs=(
             "utils"
             "agents"
@@ -289,7 +290,7 @@ for lib in network_libs:
             "utils/visualization"
             "worlds/minecraft"
         )
-
+        
         for dir in "${required_dirs[@]}"; do
             if [ -d "$dir" ]; then
                 echo "  ✅ $dir/"
@@ -298,7 +299,7 @@ for lib in network_libs:
                 exit 1
             fi
         done
-
+        
         echo "✅ 目录结构完整"
 
   # Minecraft服务器测试
@@ -307,41 +308,40 @@ for lib in network_libs:
     runs-on: ubuntu-latest
     needs: structure-check
     timeout-minutes: 15
-
+    
     steps:
     - name: 📥 Checkout代码
       uses: actions/checkout@v4
-
+      
     - name: ☕ 安装Java 17
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
         java-version: '17'
-
+        
     - name: 📂 打印当前工作目录
       run: |
         echo "当前工作目录：$(pwd)"
         ls -la worlds/minecraft/server/ || echo "worlds/minecraft/server/ 不存在，将在后续步骤创建"
-
-    - name: ⬇️ 下载PaperMC服务器核心 (1.21 Build 60)
+        
+    - name: ⬇️ 下载PaperMC服务器核心
       run: |
         JAR_DIR="worlds/minecraft/server"
-        TARGET_JAR="paper-1.21.8-60.jar"
         DOWNLOAD_URL="https://api.papermc.io/v2/projects/paper/versions/1.21/builds/60/downloads/paper-1.21-60.jar"
-
+        
         mkdir -p "$JAR_DIR"
-
-        if [ ! -f "$JAR_DIR/$TARGET_JAR" ]; then
-          echo "📥 正在下载并重命名 $TARGET_JAR..."
-          curl -L -o "$JAR_DIR/$TARGET_JAR" "$DOWNLOAD_URL"
+        
+        if [ ! -f "$JAR_DIR/paper-1.21.8-60.jar" ]; then
+          echo "📥 正在下载并重命名 paper-1.21.8-60.jar..."
+          curl -L -o "$JAR_DIR/paper-1.21.8-60.jar" "$DOWNLOAD_URL"
           if [ $? -ne 0 ]; then
             echo "❌ 下载失败. 请检查URL或网络连接."
             exit 1
           fi
         else
-          echo "✅ $TARGET_JAR 已存在，跳过下载"
+          echo "✅ paper-1.21.8-60.jar 已存在，跳过下载"
         fi
-
+        
     - name: 🔍 检查 paper-1.21.8-60.jar 文件
       run: |
         PAPER_JAR="worlds/minecraft/server/paper-1.21.8-60.jar"
@@ -355,27 +355,27 @@ for lib in network_libs:
     - name: ⚙️ 配置服务器
       run: |
         cd worlds/minecraft/server
-
+        
         if [ ! -f "server.properties" ]; then
           printf 'server-name=NeuroMinecraft\nserver-port=25565\nmax-players=10\nmotd=NeuroMinecraft Genesis Test Server\nonline-mode=false\nallow-nether=true\nallow-flight=false\nallow-cheats=true\nmax-world-size=10000\nannounce-player-achievements=true\nenable-query=true\nenable-rcon=false\nbroadcast-rcon-to-ops=true\nforce-gamemode=false\nforce-difficulty-locked=false\npvp=true\ngenerate-structures=true\nop-permission-level=4\nresource-pack=\nresource-pack-prompt=\nresource-pack-id=\nsync-player-chunk=true\nfunction-permission-level=2\ninitial-enabled-packs=vanilla\n' > server.properties
           echo "✅ 创建server.properties"
         else
           echo "✅ server.properties 已存在，跳过创建"
         fi
-
+        
         if [ ! -f "eula.txt" ]; then
           echo "eula=true" > eula.txt
           echo "✅ 自动同意EULA"
         else
           echo "✅ EULA文件已存在"
         fi
-
+        
     - name: 🚀 测试服务器启动
       run: |
         cd worlds/minecraft/server
         echo "🔧 测试PaperMC启动 (60秒超时)..."
         timeout 60s java -Xms1G -Xmx1G -XX:+UseG1GC -jar paper-1.21.8-60.jar --nogui || echo "⏰ 服务器启动测试完成"
-
+        
     - name: 📊 测试结果
       if: always()
       run: |
@@ -383,7 +383,7 @@ for lib in network_libs:
         echo "- 状态: ${{ job.status }}" >> minecraft_test_report.md
         echo "- Java版本: $(java -version 2>&1 | head -n 1)" >> minecraft_test_report.md
         echo "- PaperMC: $(ls -la worlds/minecraft/server/paper-1.21.8-60.jar 2>/dev/null | awk '{print $5}' || echo '缺失')" >> minecraft_test_report.md
-
+        
     - name: 📤 上传测试报告
       if: always()
       uses: actions/upload-artifact@v4
@@ -397,21 +397,21 @@ for lib in network_libs:
     runs-on: ubuntu-latest
     needs: environment-check
     timeout-minutes: 10
-
+    
     steps:
     - name: 📥 Checkout代码
       uses: actions/checkout@v4
-
+      
     - name: 🐍 设置Python
       uses: actions/setup-python@v4
       with:
         python-version: ${{ env.PYTHON_VERSION }}
-
+        
     - name: 📦 安装核心依赖
       run: |
         python -m pip install --upgrade pip
         pip install streamlit plotly bokeh pandas matplotlib
-
+        
     - name: 📋 检查可视化文件
       run: |
         visualization_files=(
@@ -421,7 +421,7 @@ for lib in network_libs:
             "static/brain_network.html"
             "static/evolution_tree.html"
         )
-
+        
         echo "🔍 检查可视化文件:"
         for file in "${visualization_files[@]}"; do
             if [ -f "$file" ]; then
@@ -430,25 +430,25 @@ for lib in network_libs:
                 echo "  ⚠️ $file (缺失)"
             fi
         done
-
+        
     - name: 🧪 测试Streamlit配置
       run: |
-        python << 'PY_EOF'
-import os
-import sys
-
-dashboard_path = "utils/visualization/streamlit_dashboard.py"
-if os.path.exists(dashboard_path):
-    sys.path.append('utils/visualization')
-    try:
-        import streamlit_dashboard
-        print('✅ Streamlit仪表板可导入')
-    except Exception as e:
-        print(f'⚠️ Streamlit仪表板导入问题: {e}')
-else:
-    print("ℹ️ utils/visualization/streamlit_dashboard.py 不存在，跳过导入测试")
-PY_EOF
-
+        python -c "
+        import os
+        import sys
+        
+        dashboard_path = 'utils/visualization/streamlit_dashboard.py'
+        if os.path.exists(dashboard_path):
+            sys.path.append('utils/visualization')
+            try:
+                import streamlit_dashboard
+                print('✅ Streamlit仪表板可导入')
+            except Exception as e:
+                print(f'⚠️ Streamlit仪表板导入问题: {e}')
+        else:
+            print('ℹ️ utils/visualization/streamlit_dashboard.py 不存在，跳过导入测试')
+        "
+        
     - name: 📱 生成可视化测试报告
       if: always()
       run: |
@@ -456,7 +456,7 @@ PY_EOF
         echo "- 状态: ${{ job.status }}" >> visualization_test_report.md
         echo "- Streamlit: $(pip show streamlit | grep Version || echo '未安装')" >> visualization_test_report.md
         echo "- Plotly: $(pip show plotly | grep Version || echo '未安装')" >> visualization_test_report.md
-
+        
     - name: 📤 上传测试报告
       if: always()
       uses: actions/upload-artifact@v4
@@ -470,28 +470,28 @@ PY_EOF
     runs-on: ubuntu-latest
     needs: environment-check
     timeout-minutes: 10
-
+    
     steps:
     - name: 📥 Checkout代码
       uses: actions/checkout@v4
-
+      
     - name: 🐍 设置Python
       uses: actions/setup-python@v4
       with:
         python-version: ${{ env.PYTHON_VERSION }}
-
+        
     - name: 📦 安装检查工具
       run: |
         python -m pip install --upgrade pip
         pip install flake8 black mypy
-
+        
     - name: 🔍 检查Python语法
       run: |
         echo "🔍 检查Python文件语法..."
         find . -name "*.py" -type f | head -20 | while read file; do
             python -m py_compile "$file" && echo "  ✅ $file" || echo "  ❌ $file"
         done
-
+        
     - name: 🎨 代码格式检查
       if: always()
       run: |
@@ -502,7 +502,7 @@ PY_EOF
         else
           echo "ℹ️ Flake8未安装，跳过代码风格检查"
         fi
-
+        
     - name: 📝 生成质量报告
       if: always()
       run: |
@@ -510,7 +510,7 @@ PY_EOF
         echo "- 状态: ${{ job.status }}" >> quality_report.md
         echo "- Flake8: $(flake8 --version 2>/dev/null || echo '未安装')" >> quality_report.md
         echo "- Python: $(python --version)" >> quality_report.md
-
+        
     - name: 📤 上传质量报告
       if: always()
       uses: actions/upload-artifact@v4
@@ -524,21 +524,21 @@ PY_EOF
     runs-on: ubuntu-latest
     needs: [environment-check, structure-check]
     timeout-minutes: 15
-
+    
     steps:
     - name: 📥 Checkout代码
       uses: actions/checkout@v4
-
+      
     - name: 🐍 设置Python
       uses: actions/setup-python@v4
       with:
         python-version: ${{ env.PYTHON_VERSION }}
-
+        
     - name: 📦 安装基础依赖
       run: |
         python -m pip install --upgrade pip
         pip install numpy pandas matplotlib torch streamlit plotly requests
-
+        
     - name: 🧪 测试项目启动
       run: |
         if [ -f "quickstart.py" ]; then
@@ -547,46 +547,46 @@ PY_EOF
         else
           echo "⚠️ quickstart.py不存在"
         fi
-
+        
     - name: 🧪 测试导入核心模块
       run: |
-        python << 'PY_EOF'
-print('🔍 测试核心模块集成...')
-
-import sys
-from pathlib import Path
-
-project_root = Path.cwd()
-sys.path.insert(0, str(project_root))
-
-try:
-    import numpy as np
-    print(f'✅ NumPy {np.__version__}')
-
-    import pandas as pd
-    print(f'✅ Pandas {pd.__version__}')
-
-    import torch
-    print(f'✅ PyTorch {torch.__version__}')
-
-    core_modules = [
-        'utils.brain_engine',
-        'agents.evolution.disco_rl_agent',
-        'utils.quantum_simulator.quantum_brain'
-    ]
-
-    for module in core_modules:
+        python -c "
+        print('🔍 测试核心模块集成...')
+        
+        import sys
+        from pathlib import Path
+        
+        project_root = Path.cwd()
+        sys.path.insert(0, str(project_root))
+        
         try:
-            __import__(module)
-            print(f'✅ {module}')
-        except ImportError:
-            print(f'⚠️ {module} (导入失败，可能需要完整依赖)')
-
-except Exception as e:
-    print(f'❌ 集成测试失败: {e}')
-    sys.exit(1)
-PY_EOF
-
+            import numpy as np
+            print(f'✅ NumPy {np.__version__}')
+            
+            import pandas as pd
+            print(f'✅ Pandas {pd.__version__}')
+            
+            import torch
+            print(f'✅ PyTorch {torch.__version__}')
+            
+            core_modules = [
+                'utils.brain_engine',
+                'agents.evolution.disco_rl_agent',
+                'utils.quantum_simulator.quantum_brain'
+            ]
+            
+            for module in core_modules:
+                try:
+                    __import__(module)
+                    print(f'✅ {module}')
+                except ImportError:
+                    print(f'⚠️ {module} (导入失败，可能需要完整依赖)')
+        
+        except Exception as e:
+            print(f'❌ 集成测试失败: {e}')
+            sys.exit(1)
+        "
+        
     - name: 📊 生成集成测试报告
       if: always()
       run: |
@@ -594,7 +594,7 @@ PY_EOF
         echo "- 状态: ${{ job.status }}" >> integration_report.md
         echo "- 核心模块: 测试完成" >> integration_report.md
         echo "- 时间: $(date)" >> integration_report.md
-
+        
     - name: 📤 上传测试报告
       if: always()
       uses: actions/upload-artifact@v4
@@ -605,21 +605,14 @@ PY_EOF
   # 最终结果汇总
   final-report:
     name: 📋 最终报告
-    needs:
-      - environment-check
-      - multi-version-test
-      - structure-check
-      - minecraft-server-test
-      - visualization-test
-      - code-quality
-      - integration-test
     runs-on: ubuntu-latest
+    needs: [environment-check, multi-version-test, structure-check, minecraft-server-test, visualization-test, code-quality, integration-test]
     if: always()
-
+    
     steps:
     - name: 📥 Download所有报告
       uses: actions/download-artifact@v4
-
+      
     - name: 📋 合并测试报告
       run: |
         echo "# 🏁 NeuroMinecraft Genesis CI/CD 最终报告" > final_report.md
@@ -640,16 +633,16 @@ PY_EOF
         echo "" >> final_report.md
         echo "## 🔍 详细报告" >> final_report.md
         echo "请查看各个测试任务的artifacts获取详细结果。" >> final_report.md
-
+        
     - name: 📤 上传最终报告
       uses: actions/upload-artifact@v4
       with:
         name: final-ci-report
         path: final_report.md
-
+        
     - name: 🎯 设置结果状态
       run: |
-        if [[ "${{ needs.environment-check.result }}" == "success" && \
+        if [[ "${{ needs.environment-check.result }}" == "success" && 
               "${{ needs.structure-check.result }}" == "success" ]]; then
           echo "✅ 核心功能正常"
         else
