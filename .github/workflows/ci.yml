@@ -326,7 +326,7 @@ jobs:
         if [ ! -f "$PAPER_JAR" ]; then
           echo "📥 下载PaperMC服务器..."
           curl --retry 3 --fail -L -o "$PAPER_JAR" \
-            "https://api.papermc.io/v2/projects/paper/versions/1.20.1/builds/latest/downloads/paper-1.20.1-latest.jar"
+            "https://fill-data.papermc.io/v1/objects/234a9b32098100c6fc116664d64e36ccdb58b5b649af0f80bcccb08b0255eaea/paper-1.20.1-196.jar"
           echo "✅ PaperMC下载完成"
         else
           echo "✅ PaperMC文件已存在"
