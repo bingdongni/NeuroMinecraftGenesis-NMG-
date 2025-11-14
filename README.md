@@ -9,7 +9,7 @@
 **DiscoRL自主算法发现** | **六维认知引擎** | **量子类脑融合** | **三世界集成**
 
 
-**开发者**: bingdongni | **目标**: 1000+ Stars | **学术突破** | **投资认可**
+**开发者**: bingdongni | **目标**: 1200+ Stars | **学术突破** | **投资认可**
 
 </div>
 
@@ -67,20 +67,6 @@
 - 🌱 **终身学习能力** - 跨100个任务灾难性遗忘率<5%
 - 🎮 **多环境泛化** - Minecraft、PyBullet、Reddit对话全适配
 
-## 📊 性能基准对比
-
-| 基准测试 | NeuroMinecraft Genesis | DQN | PPO | DiscoRL | AlphaGo |
-|---------|----------------------|-----|-----|---------|---------|
-| Atari Breakout | **890** | 120 | 350 | 410 | 780 |
-| Minecraft Survival 24h | **100%** | - | - | - | - |
-| ProcGen CoinRun | **0.94** | - | 0.85 | - | - |
-| 零样本迁移 | **67%** | 15% | 23% | 41% | 30% |
-| 算法发现效率 | **50x** | - | - | 1x | - |
-| 量子加速比 | **12.5x** | 1x | 1x | 1x | 1x |
-| 能效比 | **20x** | 1x | 1x | 1x | 0.5x |
-| 六维认知综合评分 | **0.94** | 0.23 | 0.35 | 0.41 | 0.58 |
-
-*数据来源：24小时连续测试，5次运行平均值*
 
 ## 🚀 5分钟快速体验
 
@@ -195,27 +181,6 @@ python worlds/integrated_environment.py --demo
 │ 📁 记忆库: 9,847条目 | 概念图: 1,256节点                    │
 └─────────────────────────────────────────────────────────────┘
 ```
-
-## 🏆 学术影响力
-
-### 📝 **发表与提交**
-- **NeurIPS 2024 Workshop** - "[Self-Evolving Cognitive Architecture with DiscoRL](https://openreview.net/forum=abc123)" (审稿中)
-- **ICLR 2024** - "[Quantum-Enhanced Imagination for AGI](https://openreview.net/forum=def456)" (已提交)  
-- **Nature Machine Intelligence** - "[六维认知模型的生物学基础](https://nature.com/articles/xyz789)" (准备中)
-- **arXiv Preprint** - "[DiscoRL: 自主算法发现系统](https://arxiv.org/abs/2301.00001)" (已发布)
-
-### 📰 **媒体报道**
-- 🤖 [VentureBeat](https://venturebeat.com/ai/student-ai-minecraft-breakthrough/) - "Student AI Shows Novel Learning Algorithm Discovery System"
-- 📰 [MIT Technology Review](https://technologyreview.com/ai-minecraft-breakthrough) - "AI Agent Evolves Like Humans in Virtual World Using DiscoRL"
-- 🔬 [Science Daily](https://sciencedaily.com/ai-cognitive-evolution) - "Breakthrough in Artificial General Intelligence Research with Multi-Modal Integration"
-- 🎮 [GameSpot](https://gamespot.com/ai-minecraft-breakthrough) - "Minecraft AI Discovers Its Own Learning Algorithms"
-- 📊 [TechCrunch](https://techcrunch.com/ai-cognitive-breakthrough) - "Quantum-Enhanced Brain-Inspired AI Shows Human-Like Cognitive Abilities"
-
-### 🏅 **奖项与认可**
-- **ACM SIGAI Student Innovation Award 2024** (提名)
-- **MIT AI Hackathon Best Paper** (获奖) 
-- **Google Summer of Code 2024** (入选项目)
-- **GitHub Universe Top Project** (特邀展示)
 
 ### 📈 **引用统计**
 - **GitHub Stars**: 1,200+ ⭐
