@@ -338,7 +338,7 @@ jobs:
         
         # 创建server.properties
         if [ ! -f "server.properties" ]; then
-          cat > server.properties << 'EOF'
+          cat > server.properties << 'SERVER_EOF'
 server-name=NeuroMinecraft
 server-port=25565
 max-players=10
@@ -367,7 +367,7 @@ function-permission-level=2
 initial-enabled-packs=vanilla
 broadcast-rcon-to-ops=true
 server-name=NeuroMinecraft
-EOF
+SERVER_EOF
           echo "✅ 创建server.properties"
         fi
         
