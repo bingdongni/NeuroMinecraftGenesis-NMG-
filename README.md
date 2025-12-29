@@ -46,7 +46,6 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2301.00000-red.svg)](https://arxiv.org/abs/2301.00000)
 [![Python](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
-[![NeurIPS](https://img.shields.io/badge/NeurIPS-Workshop-orange.svg)](https://neurips.cc/Conferences/2024/Workshop)
 
 ---
 
@@ -96,7 +95,6 @@ python utils/deployment/zero_cost_cli.py quick-setup
 streamlit run utils/visualization/advanced_dashboard.py --server.port 8501
 ```
 
-访问 [http://localhost:8501](http://localhost:8501) 查看实时六维能力监控和多智能体进化过程！
 
 ### 快速测试
 ```python
@@ -139,12 +137,11 @@ python worlds/integrated_environment.py --demo
 
 ### 🏛️ **学术级代码质量**
 - **完整单元测试**：100%代码覆盖率
-- **详细文档注释**：中文技术文档+英文论文
+- **详细文档注释**：中文技术文档
 - **符合国际标准**：PEP8 + PEP257规范
 - **可重现实验**：完整的实验数据和代码
 
 ### 🔬 **学习资源丰富**
-- **技术论文**：arXiv投稿级LaTeX文档
 - **实验教程**：step-by-step实验指导
 - **可视化演示**：3D神经网络+量子态可视化
 - **社区支持**：GitHub Discussions + 学术交流
@@ -272,18 +269,6 @@ python worlds/integrated_environment.py --demo
 - [开发路线图](ROADMAP.md) - 未来三年规划
 - [常见问题](docs/FAQ.md) - 问题解答汇总
 
-## 📚 核心论文
-
-如果您在研究中使用了本项目，请引用：
-
-```bibtex
-@article{bing2024neurominecraft,
-  title={NeuroMinecraft Genesis: A Self-Evolving Cognitive AI in the Wild},
-  author={Li, Bingdong and Zhang, Ming and Wang, Wei},
-  journal={arXiv preprint arXiv:2301.00000},
-  year={2024}
-}
-```
 
 ## 🙏 致谢
 
