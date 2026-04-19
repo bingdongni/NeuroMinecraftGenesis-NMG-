@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroMinecraft Genesis - 进化树可视化</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        #container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        #info-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 280px;
+            z-index: 100;
+        }
+        #info-panel h1 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #00d4ff;
+        }
+        .metric {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+        .metric-label {
+            font-size: 0.8em;
+            color: #aaa;
+        }
+        .metric-value {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #00ff88;
+        }
+        #legend {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            z-index: 100;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        .control-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .control-btn:hover {
+            transform: scale(1.05);
+        }
+        .node {
+            cursor: pointer;
+        }
+        .node-label {
+            font-size: 10px;
+            fill: #fff;
+        }
+        .link {
+            fill: none;
+            stroke: #00ff88;
+            stroke-opacity: 0.6;
+            stroke-width: 1.5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <svg id="tree-svg"></svg>
+    </div>
+
+    <div id="info-panel">
+        <h1>🌳 进化过程</h1>
+        <div class="metric">
+            <div class="metric-label">当前代数</div>
+            <div class="metric-value" id="generation">0</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">存活个体</div>
+            <div class="metric-value" id="survivors">0</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">最佳适应度</div>
+            <div class="metric-value" id="best-fitness">0.00</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">平均适应度</div>
+            <div class="metric-value" id="avg-fitness">0.00</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">突变数量</div>
+            <div class="metric-value" id="mutations">0</div>
+        </div>
+    </div>
+
+    <div id="legend">
+        <h3 style="margin-bottom: 10px; color: #00d4ff;">图例</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #00ff88;"></div>
+            <span>高适应度</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #ffff00;"></div>
+            <span>中等适应度</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #ff6600;"></div>
+            <span>低适应度</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #ff0000;"></div>
+            <span>已淘汰</span>
+        </div>
+    </div>
+
+    <div id="controls">
+        <button class="control-btn" onclick="runEvolution()">运行进化</button>
+        <button class="control-btn" onclick="resetEvolution()">重置</button>
+        <button class="control-btn" onclick="toggleLabels()">标签切换</button>
+    </div>
+
+    <script>
+        // 树形图设置
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        const svg = d3.select("#tree-svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        const g = svg.append("g")
+            .attr("transform", "translate(50, 50)");
+
+        // 缩放
+        const zoom = d3.zoom()
+            .scaleExtent([0.1, 4])
+            .on("zoom", (event) => {
+                g.attr("transform", event.transform);
+            });
+
+        svg.call(zoom);
+
+        // 颜色比例
+        const colorScale = d3.scaleLinear()
+            .domain([0, 0.5, 1])
+            .range(["#ff0000", "#ffff00", "#00ff88"]);
+
+        // 树形布局
+        const treeLayout = d3.tree()
+            .size([height - 100, width - 200]);
+
+        // 进化数据
+        let evolutionData = generateInitialData();
+        let showLabels = true;
+        let currentGeneration = 0;
+
+        function generateInitialData() {
+            const root = {
+                name: "Gen 0",
+                fitness: 0.5,
+                children: []
+            };
+
+            for (let i = 0; i < 8; i++) {
+                root.children.push({
+                    name: `Ind ${i}`,
+                    fitness: Math.random() * 0.4 + 0.3,
+                    children: []
+                });
+            }
+
+            return root;
+        }
+
+        function updateTree() {
+            const root = d3.hierarchy(evolutionData);
+            const treeData = treeLayout(root);
+
+            // 连接线
+            const links = g.selectAll(".link")
+                .data(treeData.links(), d => d.target.data.name);
+
+            links.enter()
+                .append("path")
+                .attr("class", "link")
+                .merge(links)
+                .transition()
+                .duration(500)
+                .attr("d", d3.linkHorizontal()
+                    .x(d => d.y)
+                    .y(d => d.x));
+
+            links.exit().remove();
+
+            // 节点
+            const nodes = g.selectAll(".node")
+                .data(treeData.descendants(), d => d.data.name);
+
+            const nodeEnter = nodes.enter()
+                .append("g")
+                .attr("class", "node")
+                .attr("transform", d => `translate(${d.y}, ${d.x})`);
+
+            nodeEnter.append("circle")
+                .attr("r", 8)
+                .attr("fill", d => colorScale(d.data.fitness))
+                .attr("stroke", "#fff")
+                .attr("stroke-width", 2)
+                .on("click", (event, d) => showNodeInfo(d));
+
+            nodeEnter.append("text")
+                .attr("class", "node-label")
+                .attr("dy", -15)
+                .attr("text-anchor", "middle")
+                .text(d => d.data.name);
+
+            nodes.merge(nodeEnter)
+                .transition()
+                .duration(500)
+                .attr("transform", d => `translate(${d.y}, ${d.x})`);
+
+            nodes.merge(nodeEnter).select("circle")
+                .attr("fill", d => colorScale(d.data.fitness));
+
+            nodes.exit().remove();
+        }
+
+        function showNodeInfo(d) {
+            alert(`个体信息:\n名称: ${d.data.name}\n适应度: ${d.data.fitness.toFixed(4)}\n深度: ${d.depth}`);
+        }
+
+        function runEvolution() {
+            currentGeneration++;
+            const newGeneration = {
+                name: `Gen ${currentGeneration}`,
+                fitness: Math.random() * 0.3 + 0.5,
+                children: []
+            };
+
+            // 生成新个体
+            for (let i = 0; i < Math.floor(Math.random() * 6) + 4; i++) {
+                newGeneration.children.push({
+                    name: `Ind ${i}`,
+                    fitness: Math.random() * 0.5 + 0.3,
+                    children: []
+                });
+            }
+
+            // 添加到树中
+            addChildNode(evolutionData, newGeneration);
+
+            updateMetrics();
+            updateTree();
+        }
+
+        function addChildNode(parent, child) {
+            if (!parent.children) parent.children = [];
+            // 找到叶节点添加
+            if (parent.children.length > 0) {
+                const lastChild = parent.children[parent.children.length - 1];
+                if (!lastChild.children || lastChild.children.length < 8) {
+                    lastChild.children = lastChild.children || [];
+                    lastChild.children.push(child);
+                }
+            }
+        }
+
+        function resetEvolution() {
+            evolutionData = generateInitialData();
+            currentGeneration = 0;
+            updateMetrics();
+            updateTree();
+        }
+
+        function toggleLabels() {
+            showLabels = !showLabels;
+            g.selectAll(".node-label")
+                .style("opacity", showLabels ? 1 : 0);
+        }
+
+        function updateMetrics() {
+            document.getElementById("generation").textContent = currentGeneration;
+
+            const allNodes = [];
+            function collectNodes(node) {
+                allNodes.push(node);
+                if (node.children) {
+                    node.children.forEach(collectNodes);
+                }
+            }
+            collectNodes(evolutionData);
+
+            document.getElementById("survivors").textContent = allNodes.length;
+            document.getElementById("best-fitness").textContent = Math.max(...allNodes.map(n => n.fitness)).toFixed(4);
+            document.getElementById("avg-fitness").textContent = (allNodes.reduce((s, n) => s + n.fitness, 0) / allNodes.length).toFixed(4);
+            document.getElementById("mutations").textContent = currentGeneration * 10;
+        }
+
+        // 初始化
+        updateMetrics();
+        updateTree();
+
+        // 窗口调整
+        window.addEventListener("resize", () => {
+            svg.attr("width", window.innerWidth).attr("height", window.innerHeight);
+        });
+    </script>
+</body>
+</html>

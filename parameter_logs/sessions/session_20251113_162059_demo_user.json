@@ -1,0 +1,19 @@
+{
+  "session_id": "session_20251113_162059_demo_user",
+  "start_time": "2025-11-13 16:20:59.918078",
+  "end_time": "2025-11-13 16:21:00.918201",
+  "user_id": "demo_user",
+  "total_changes": 1,
+  "parameters_modified": [
+    "curiosity_weight"
+  ],
+  "session_summary": {
+    "duration_seconds": 1.000123,
+    "average_change_interval": 1.000123,
+    "parameters_per_minute": 59.99262090762835
+  },
+  "tags": [
+    "demo",
+    "演示"
+  ]
+}

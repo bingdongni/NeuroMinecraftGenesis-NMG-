@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-11-14 14:19:39",
+  "system": {
+    "platform": "Linux-5.10.134-19.1.al8.x86_64-x86_64-with-glibc2.36",
+    "python_version": "3.12.5",
+    "architecture": "x86_64"
+  },
+  "checks": {
+    "python_version": "pass",
+    "project_structure": "pass",
+    "minecraft_server": "fail",
+    "dependencies": "fail",
+    "system_resources": "pass",
+    "network_connectivity": "pass"
+  }
+}

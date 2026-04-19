@@ -1,0 +1,15 @@
+[
+  {
+    "session_id": "test_session",
+    "start_time": "2025-11-13T17:39:57.415672",
+    "end_time": "2025-11-13T17:39:57.415956",
+    "status": "completed",
+    "strategies_processed": 1,
+    "adaptations_performed": 0,
+    "evaluations_completed": 0,
+    "overall_performance": {},
+    "recommendations": [
+      "建议处理更多策略样例以提高迁移效果"
+    ]
+  }
+]

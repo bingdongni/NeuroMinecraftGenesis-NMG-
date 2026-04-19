@@ -1,0 +1,134 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+logs/
+*.log
+models/cache/
+data/cache/
+temp/
+cache/
+*.tmp
+
+# API keys and secrets
+.env
+config/secrets.yaml
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# TensorFlow
+*.pb
+*.pbtxt
+*.tflite
+*.h5
+*.hdf5
+
+# PyTorch
+*.pt
+*.pth
+*.pkl
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb
+
+# scientific python
+*.hdf5
+*.npy
+*.npz
+
+# MLflow
+mlruns/
+
+# DVC
+.dvcignore
+.dvc/
+dvc.yaml
+
+# Weights & Biases
+wandb/
+
+# Hydra
+outputs/
+multirun/
+.hydra/
+
+# Ray Tune
+ray_results/

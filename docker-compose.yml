@@ -1,0 +1,260 @@
+# NeuroMinecraft Genesis Docker Compose Configuration
+# Complete deployment with all services
+
+version: '3.8'
+
+services:
+  # ===========================================
+  # Main Application Services
+  # ===========================================
+
+  # Streamlit Dashboard
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: nmg-dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./reports:/app/reports
+    environment:
+      - PYTHONUNBUFFERED=1
+      - STREAMLIT_SERVER_HEADLESS=true
+      - STREAMLIT_SERVER_PORT=8501
+    depends_on:
+      - redis
+      - mongodb
+    networks:
+      - nmg-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8501/_stcore/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # FastAPI Server
+  api-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: nmg-api
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DATABASE_URL=sqlite:///app/data/nmg.db
+      - REDIS_URL=redis://redis:6379/0
+      - MONGODB_URL=mongodb://mongodb:27017/nmg
+    depends_on:
+      - redis
+      - mongodb
+    networks:
+      - nmg-network
+    restart: unless-stopped
+    command: ["uvicorn", "utils.api.server:app", "--host", "0.0.0.0", "--port", "8080"]
+
+  # ===========================================
+  # Database Services
+  # ===========================================
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: nmg-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - nmg-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MongoDB
+  mongodb:
+    image: mongo:6
+    container_name: nmg-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=neurominecraft
+    networks:
+      - nmg-network
+    restart: unless-stopped
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # PostgreSQL (for structured data)
+  postgres:
+    image: postgres:15-alpine
+    container_name: nmg-postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=nmg
+      - POSTGRES_PASSWORD=nmg_secret
+      - POSTGRES_DB=neurominecraft
+    networks:
+      - nmg-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nmg"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ===========================================
+  # Monitoring Services
+  # ===========================================
+
+  # Prometheus Metrics
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: nmg-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-lifecycle'
+    networks:
+      - nmg-network
+    restart: unless-stopped
+
+  # Grafana Dashboard
+  grafana:
+    image: grafana/grafana:latest
+    container_name: nmg-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./config/grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    depends_on:
+      - prometheus
+    networks:
+      - nmg-network
+    restart: unless-stopped
+
+  # ===========================================
+  # Minecraft Server (Optional)
+  # ===========================================
+
+  minecraft:
+    image: itzg/minecraft-server:latest
+    container_name: nmg-minecraft
+    ports:
+      - "25565:25565"
+    volumes:
+      - minecraft-data:/data
+    environment:
+      - EULA=TRUE
+      - VERSION=1.20.1
+      - PAPER_TYPE=true
+      - SERVER_PORT=25565
+      - MEMORY=4G
+    networks:
+      - nmg-network
+    restart: unless-stopped
+    profiles:
+      - minecraft
+
+  # ===========================================
+  # Development Tools
+  # ===========================================
+
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: nmg-jupyter
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/app/notebooks
+      - ./data:/app/data
+      - ./models:/app/models
+    environment:
+      - JUPYTER_TOKEN=nmg_dev_token
+      - JUPYTER_ALLOW_INSECURE_WRITES=1
+    networks:
+      - nmg-network
+    profiles:
+      - development
+    command: jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root
+
+  # ===========================================
+  # Testing Service
+  # ===========================================
+
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: testing
+    container_name: nmg-tests
+    volumes:
+      - ./data:/app/data
+    networks:
+      - nmg-network
+    profiles:
+      - testing
+    command: ["pytest", "-v", "/app/tests/", "--tb=short", "--junitxml=/app/reports/test-results.xml"]
+
+  # ===========================================
+  # Network Definition
+  # ===========================================
+
+networks:
+  nmg-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+# ===========================================
+# Volume Definitions
+# ===========================================
+
+volumes:
+  redis-data:
+    driver: local
+  mongo-data:
+    driver: local
+  postgres-data:
+    driver: local
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+  minecraft-data:
+    driver: local

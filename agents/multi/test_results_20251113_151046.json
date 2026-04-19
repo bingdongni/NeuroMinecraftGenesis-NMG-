@@ -1,0 +1,44 @@
+{
+  "集体记忆系统测试": {
+    "success": true,
+    "duration": 0.0003333091735839844,
+    "details": {
+      "memory_storage": true,
+      "memory_retrieval": true,
+      "memory_verification": true,
+      "resource_hotspots": true,
+      "memory_merging": true,
+      "statistics": true
+    }
+  },
+  "社会认知系统测试": {
+    "success": false,
+    "error": "name 'logging' is not defined",
+    "duration": 3.123283386230469e-05
+  },
+  "协作协议系统测试": {
+    "success": false,
+    "error": "'agent_0'",
+    "duration": 0.000186920166015625
+  },
+  "部落社会系统测试": {
+    "success": false,
+    "error": "name 'logging' is not defined",
+    "duration": 4.5299530029296875e-05
+  },
+  "集成功能测试": {
+    "success": false,
+    "error": "name 'logging' is not defined",
+    "duration": 3.314018249511719e-05
+  },
+  "性能压力测试": {
+    "success": false,
+    "error": "name 'logging' is not defined",
+    "duration": 4.1484832763671875e-05
+  },
+  "演示模式": {
+    "success": false,
+    "error": "name 'logging' is not defined",
+    "duration": 3.075599670410156e-05
+  }
+}

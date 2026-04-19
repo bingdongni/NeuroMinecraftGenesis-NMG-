@@ -1,0 +1,179 @@
+{
+  "timestamp": 1763030477.3253171,
+  "total_tests": 27,
+  "passed_tests": 27,
+  "failed_tests": 0,
+  "success_rate": 1.0,
+  "total_time": 1.300441026687622,
+  "test_results": [
+    {
+      "test": "图像创建",
+      "success": true,
+      "message": "创建了 (100, 100, 3) 的图像",
+      "timestamp": 1763030476.025001
+    },
+    {
+      "test": "图像缩放",
+      "success": true,
+      "message": "缩放后尺寸: (50, 50, 3)",
+      "timestamp": 1763030476.0250366
+    },
+    {
+      "test": "边缘检测",
+      "success": true,
+      "message": "边缘检测成功，输出形状: (100, 100)",
+      "timestamp": 1763030476.0313725
+    },
+    {
+      "test": "轮廓检测",
+      "success": true,
+      "message": "检测到 0 个轮廓",
+      "timestamp": 1763030476.037014
+    },
+    {
+      "test": "对象创建",
+      "success": true,
+      "message": "创建了世界对象: test_obj_1",
+      "timestamp": 1763030476.0370426
+    },
+    {
+      "test": "位置融合",
+      "success": true,
+      "message": "融合后位置: [1.5 2.5 3.5]",
+      "timestamp": 1763030476.0372164
+    },
+    {
+      "test": "对象列表",
+      "success": true,
+      "message": "对象列表包含 2 个对象",
+      "timestamp": 1763030476.0372276
+    },
+    {
+      "test": "点云生成",
+      "success": true,
+      "message": "生成了 60 个点",
+      "timestamp": 1763030476.0373738
+    },
+    {
+      "test": "聚类分析",
+      "success": true,
+      "message": "发现 3 个聚类",
+      "timestamp": 1763030476.1237555
+    },
+    {
+      "test": "质心计算",
+      "success": true,
+      "message": "整体质心: [0.71538645 2.23853394 1.31298909]",
+      "timestamp": 1763030476.1239176
+    },
+    {
+      "test": "PCA分析",
+      "success": true,
+      "message": "解释方差比: [0.84686442 0.10908078 0.04405481]",
+      "timestamp": 1763030476.124807
+    },
+    {
+      "test": "特征创建",
+      "success": true,
+      "message": "创建了三种模态特征",
+      "timestamp": 1763030476.1248634
+    },
+    {
+      "test": "加权融合",
+      "success": true,
+      "message": "融合特征维度: 10",
+      "timestamp": 1763030476.1248744
+    },
+    {
+      "test": "特征归一化",
+      "success": true,
+      "message": "归一化后范数: 1.000000",
+      "timestamp": 1763030476.1248977
+    },
+    {
+      "test": "相似度计算",
+      "success": true,
+      "message": "特征相似度: 1.0812",
+      "timestamp": 1763030476.1249135
+    },
+    {
+      "test": "对象创建",
+      "success": true,
+      "message": "创建对象 obj_1",
+      "timestamp": 1763030476.1249251
+    },
+    {
+      "test": "置信度衰减",
+      "success": true,
+      "message": "置信度衰减为: 0.855",
+      "timestamp": 1763030476.2250032
+    },
+    {
+      "test": "位置更新",
+      "success": true,
+      "message": "更新后位置: [1.03 1.03 1.03]",
+      "timestamp": 1763030476.2251837
+    },
+    {
+      "test": "过期清理",
+      "success": true,
+      "message": "清理后剩余对象: 0",
+      "timestamp": 1763030476.2251933
+    },
+    {
+      "test": "距离计算",
+      "success": true,
+      "message": "对象间距离: 6.88",
+      "timestamp": 1763030476.2252188
+    },
+    {
+      "test": "图像处理性能",
+      "success": true,
+      "message": "平均时间: 0.0031秒/帧",
+      "timestamp": 1763030476.6233742
+    },
+    {
+      "test": "聚类性能",
+      "success": true,
+      "message": "平均时间: 0.0400秒/次",
+      "timestamp": 1763030477.0237937
+    },
+    {
+      "test": "特征融合性能",
+      "success": true,
+      "message": "平均时间: 0.000011秒/次",
+      "timestamp": 1763030477.024965
+    },
+    {
+      "test": "视觉模拟",
+      "success": true,
+      "message": "检测到 0 个物体",
+      "timestamp": 1763030477.225624
+    },
+    {
+      "test": "空间模拟",
+      "success": true,
+      "message": "提取到 21 个空间特征",
+      "timestamp": 1763030477.3235562
+    },
+    {
+      "test": "集成融合",
+      "success": true,
+      "message": "融合特征: [ 0.                 nan 21.          3.69686876]",
+      "timestamp": 1763030477.3245528
+    },
+    {
+      "test": "世界更新",
+      "success": true,
+      "message": "世界中有 21 个对象",
+      "timestamp": 1763030477.324574
+    }
+  ],
+  "system_capabilities": {
+    "视觉感知": "OpenCV图像处理和物体检测 ✓",
+    "空间感知": "点云处理和空间特征提取 ✓",
+    "世界模型": "对象跟踪和状态管理 ✓",
+    "多模态融合": "特征提取和融合 ✓",
+    "数据处理管道": "完整的多模态数据流 ✓"
+  }
+}

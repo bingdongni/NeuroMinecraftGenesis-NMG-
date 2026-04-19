@@ -1,0 +1,76 @@
+{
+  "report_timestamp": 1763017959.7339656,
+  "system_info": {
+    "version": "1.0.0",
+    "components": {
+      "complexity_controller": "DynamicComplexityController",
+      "difficulty_engine": "AdaptiveDifficultyEngine",
+      "environment_evaluator": "EnvironmentEvaluator",
+      "world_generator": "DynamicWorldGenerator"
+    }
+  },
+  "demo_summary": {
+    "total_steps": 9,
+    "worlds_generated": 9,
+    "evaluations_performed": 0,
+    "adaptations_made": 0
+  },
+  "detailed_data": {
+    "adaptation_history": [
+      {
+        "step": 0,
+        "complexity": 0.3,
+        "adaptation_applied": false,
+        "difficulty_adjusted": false
+      },
+      {
+        "step": 1,
+        "complexity": 0.3625,
+        "adaptation_applied": false,
+        "difficulty_adjusted": false
+      },
+      {
+        "step": 2,
+        "complexity": 0.425,
+        "adaptation_applied": false,
+        "difficulty_adjusted": false
+      },
+      {
+        "step": 3,
+        "complexity": 0.4875,
+        "adaptation_applied": false,
+        "difficulty_adjusted": false
+      },
+      {
+        "step": 4,
+        "complexity": 0.55,
+        "adaptation_applied": false,
+        "difficulty_adjusted": false
+      },
+      {
+        "step": 5,
+        "complexity": 0.6125,
+        "adaptation_applied": false,
+        "difficulty_adjusted": false
+      },
+      {
+        "step": 6,
+        "complexity": 0.675,
+        "adaptation_applied": false,
+        "difficulty_adjusted": false
+      },
+      {
+        "step": 7,
+        "complexity": 0.7375,
+        "adaptation_applied": false,
+        "difficulty_adjusted": false
+      },
+      {
+        "step": 8,
+        "complexity": 0.8,
+        "adaptation_applied": false,
+        "difficulty_adjusted": false
+      }
+    ]
+  }
+}

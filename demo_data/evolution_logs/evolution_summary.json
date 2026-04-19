@@ -1,0 +1,17 @@
+{
+  "current_generation": 9,
+  "total_generations": 10,
+  "overall_best_fitness": 19.445763676953973,
+  "overall_best_generation": 3,
+  "current_diversity": 3.885009056638635,
+  "evolution_progress": {
+    "improvement_rate": 0.18097414574892193,
+    "stagnation_period": 0,
+    "convergence_level": 0.7548247710472505
+  },
+  "species_evolution": {
+    "current_species_count": 20,
+    "max_species_count": 20,
+    "diversity_trend": "多样性增加"
+  }
+}

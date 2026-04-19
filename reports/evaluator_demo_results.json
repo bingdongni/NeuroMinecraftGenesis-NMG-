@@ -1,0 +1,126 @@
+{
+  "evaluation_metadata": {
+    "confidence_level": 0.95,
+    "min_sample_size": 30,
+    "evaluation_timestamp": "2025-11-13 16:35:20"
+  },
+  "task_performance": [
+    {
+      "task_name": "minecraft_terralith_origins",
+      "domain": "minecraft",
+      "zero_shot_score": 0.4575,
+      "few_shot_score": 0.7875,
+      "adaptation_speed": 0.006599999999999999,
+      "learning_efficiency": 0.6203999999999998,
+      "success_rate": 0.7875,
+      "confidence_interval": [
+        0.49663034519789934,
+        0.7483696548021008
+      ],
+      "metadata": {
+        "mod_types": [
+          "terralith",
+          "origins"
+        ]
+      }
+    },
+    {
+      "task_name": "pybullet_physics_simulation",
+      "domain": "pybullet",
+      "zero_shot_score": 0.3125,
+      "few_shot_score": 0.655,
+      "adaptation_speed": 0.00685,
+      "learning_efficiency": 0.5891000000000001,
+      "success_rate": 0.655,
+      "confidence_interval": [
+        0.35560171674969654,
+        0.6118982832503035
+      ],
+      "metadata": {
+        "scene_types": [
+          "stacking",
+          "pushing",
+          "grasping"
+        ]
+      }
+    },
+    {
+      "task_name": "reddit_askscience_dialogue",
+      "domain": "reddit",
+      "zero_shot_score": 0.585,
+      "few_shot_score": 0.8525,
+      "adaptation_speed": 0.0053500000000000015,
+      "learning_efficiency": 0.5136000000000001,
+      "success_rate": 0.8525,
+      "confidence_interval": [
+        0.6183000000000001,
+        0.8191999999999999
+      ],
+      "metadata": {
+        "categories": [
+          "physics",
+          "chemistry",
+          "biology"
+        ]
+      }
+    }
+  ],
+  "comprehensive_evaluation": {
+    "overall_performance": 0.765,
+    "domain_comparison": {
+      "minecraft": 0.7875,
+      "pybullet": 0.655,
+      "reddit": 0.8525
+    },
+    "adaptation_analysis": {
+      "average_adaptation_speed": 0.006266666666666667,
+      "fastest_adaptation_task": "pybullet_physics_simulation",
+      "slowest_adaptation_task": "reddit_askscience_dialogue",
+      "efficiency_distribution": {
+        "high": 0,
+        "medium": 3,
+        "low": 0
+      }
+    },
+    "cross_domain_transfer": {
+      "空间推理迁移": 0.8317460317460318,
+      "策略应用迁移": 0.9237536656891495,
+      "逻辑推理迁移": 0.7683284457478006,
+      "overall_transfer": 0.8412760477276606
+    },
+    "improvement_trajectory": [
+      18.75,
+      5.500000000000005,
+      25.250000000000007
+    ],
+    "recommendations": [
+      "整体表现良好，可进一步优化细节"
+    ]
+  },
+  "benchmark_comparison": {
+    "overall_vs_benchmark": {
+      "current": 0.765,
+      "benchmark": 0.6,
+      "difference": 0.16500000000000004,
+      "performance_ratio": 1.2750000000000001
+    },
+    "minecraft_vs_benchmark": {
+      "current": 0.7875,
+      "benchmark": 0.65,
+      "difference": 0.13749999999999996,
+      "is_above_benchmark": true
+    },
+    "pybullet_vs_benchmark": {
+      "current": 0.655,
+      "benchmark": 0.45,
+      "difference": 0.20500000000000002,
+      "is_above_benchmark": true
+    },
+    "reddit_vs_benchmark": {
+      "current": 0.8525,
+      "benchmark": 0.7,
+      "difference": 0.15250000000000008,
+      "is_above_benchmark": true
+    }
+  }
+}

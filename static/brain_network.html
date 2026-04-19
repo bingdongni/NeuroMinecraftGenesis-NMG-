@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroMinecraft Genesis - 神经网络可视化</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        #container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        #info-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 300px;
+            z-index: 100;
+        }
+        #info-panel h1 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #00d4ff;
+        }
+        #info-panel .metric {
+            margin: 10px 0;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+        #info-panel .metric-label {
+            font-size: 0.8em;
+            color: #aaa;
+        }
+        #info-panel .metric-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #00ff88;
+        }
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 30px;
+            border-radius: 10px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+        .control-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .control-btn:hover {
+            transform: scale(1.05);
+        }
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5em;
+            color: #00d4ff;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="loading">正在加载神经网络...</div>
+    </div>
+
+    <div id="info-panel">
+        <h1>🧠 神经网络状态</h1>
+        <div class="metric">
+            <div class="metric-label">神经元数量</div>
+            <div class="metric-value" id="neuron-count">0</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">突触连接</div>
+            <div class="metric-value" id="synapse-count">0</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">活跃度</div>
+            <div class="metric-value" id="activity-level">0%</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">STDP 学习进度</div>
+            <div class="metric-value" id="stdp-progress">0%</div>
+        </div>
+    </div>
+
+    <div id="controls">
+        <button class="control-btn" onclick="resetCamera()">重置视角</button>
+        <button class="control-btn" onclick="toggleRotation()">旋转切换</button>
+        <button class="control-btn" onclick="simulateActivity()">模拟活动</button>
+        <button class="control-btn" onclick="resetNetwork()">重置网络</button>
+    </div>
+
+    <script>
+        // Three.js 场景设置
+        let scene, camera, renderer, neurons = [], connections = [];
+        let isRotating = true;
+        const NEURON_COUNT = 200;
+
+        function init() {
+            // 场景
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1a1a2e);
+
+            // 相机
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 100;
+
+            // 渲染器
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('container').appendChild(renderer.domElement);
+
+            // 光源
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+
+            const pointLight = new THREE.PointLight(0x00d4ff, 1, 200);
+            pointLight.position.set(50, 50, 50);
+            scene.add(pointLight);
+
+            // 创建神经网络
+            createNeuralNetwork();
+
+            // 更新指标
+            updateMetrics();
+
+            // 移除加载提示
+            document.getElementById('loading').style.display = 'none';
+
+            // 开始动画
+            animate();
+
+            // 窗口调整
+            window.addEventListener('resize', onWindowResize);
+        }
+
+        function createNeuralNetwork() {
+            // 清除现有神经元
+            neurons.forEach(n => scene.remove(n.mesh));
+            connections.forEach(c => scene.remove(c.line));
+            neurons = [];
+            connections = [];
+
+            // 创建神经元
+            for (let i = 0; i < NEURON_COUNT; i++) {
+                const geometry = new THREE.SphereGeometry(1.5, 16, 16);
+                const material = new THREE.MeshPhongMaterial({
+                    color: new THREE.Color().setHSL(Math.random() * 0.2 + 0.5, 0.8, 0.5),
+                    emissive: 0x00ff88,
+                    emissiveIntensity: 0.2
+                });
+                const neuron = new THREE.Mesh(geometry, material);
+
+                // 随机位置 (球形分布)
+                const radius = 50;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(2 * Math.random() - 1);
+                neuron.position.x = radius * Math.sin(phi) * Math.cos(theta);
+                neuron.position.y = radius * Math.sin(phi) * Math.sin(theta);
+                neuron.position.z = radius * Math.cos(phi);
+
+                scene.add(neuron);
+                neurons.push({
+                    mesh: neuron,
+                    velocity: new THREE.Vector3(
+                        (Math.random() - 0.5) * 0.5,
+                        (Math.random() - 0.5) * 0.5,
+                        (Math.random() - 0.5) * 0.5
+                    ),
+                    activity: Math.random() * 0.5,
+                    layer: Math.floor(Math.random() * 4)
+                });
+            }
+
+            // 创建连接
+            neurons.forEach((n1, i) => {
+                neurons.forEach((n2, j) => {
+                    if (i < j) {
+                        const distance = n1.mesh.position.distanceTo(n2.mesh.position);
+                        if (distance < 30) {
+                            const material = new THREE.LineBasicMaterial({
+                                color: 0x00ff88,
+                                transparent: true,
+                                opacity: 0.3
+                            });
+                            const geometry = new THREE.BufferGeometry().setFromPoints([
+                                n1.mesh.position,
+                                n2.mesh.position
+                            ]);
+                            const line = new THREE.Line(geometry, material);
+                            scene.add(line);
+                            connections.push({
+                                line,
+                                from: i,
+                                to: j,
+                                weight: Math.random()
+                            });
+                        }
+                    }
+                });
+            });
+        }
+
+        function updateMetrics() {
+            document.getElementById('neuron-count').textContent = neurons.length;
+            document.getElementById('synapse-count').textContent = connections.length;
+            const avgActivity = neurons.reduce((sum, n) => sum + n.activity, 0) / neurons.length;
+            document.getElementById('activity-level').textContent = (avgActivity * 100).toFixed(1) + '%';
+            document.getElementById('stdp-progress').textContent = Math.floor(Math.random() * 30 + 10) + '%';
+        }
+
+        function simulateActivity() {
+            neurons.forEach(n => {
+                n.activity = Math.random();
+                n.mesh.material.emissiveIntensity = n.activity;
+                n.mesh.scale.setScalar(1 + n.activity * 0.5);
+            });
+            updateMetrics();
+        }
+
+        function resetNetwork() {
+            createNeuralNetwork();
+            updateMetrics();
+        }
+
+        function toggleRotation() {
+            isRotating = !isRotating;
+        }
+
+        function resetCamera() {
+            camera.position.set(0, 0, 100);
+            camera.lookAt(0, 0, 0);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // 网络动态
+            neurons.forEach((n, i) => {
+                // 轻微移动
+                n.mesh.position.add(n.velocity.multiplyScalar(0.1));
+
+                // 边界约束
+                const maxDist = 60;
+                if (n.mesh.position.length() > maxDist) {
+                    n.velocity.multiplyScalar(-1);
+                }
+
+                // 活动衰减
+                n.activity *= 0.98;
+                n.mesh.material.emissiveIntensity = n.activity * 0.5;
+            });
+
+            // 更新连接颜色
+            connections.forEach(c => {
+                const activity1 = neurons[c.from].activity;
+                const activity2 = neurons[c.to].activity;
+                const combinedActivity = (activity1 + activity2) / 2;
+                c.line.material.opacity = 0.1 + combinedActivity * 0.5;
+            });
+
+            // 相机旋转
+            if (isRotating) {
+                const time = Date.now() * 0.0005;
+                camera.position.x = Math.sin(time) * 100;
+                camera.position.z = Math.cos(time) * 100;
+                camera.lookAt(0, 0, 0);
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // 初始化
+        init();
+
+        // 定期模拟活动
+        setInterval(simulateActivity, 2000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# Grafana 仪表板配置
+apiVersion: 1
+
+providers:
+  - name: 'NeuroMinecraft Genesis'
+    orgId: 1
+    folder: 'NMG'
+    type: file
+    disableDeletion: false
+    editable: true
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards

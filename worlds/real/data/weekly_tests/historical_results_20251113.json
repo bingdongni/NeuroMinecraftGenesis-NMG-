@@ -1,0 +1,117 @@
+[
+  {
+    "test_id": "navigation_task_20251113_171207",
+    "agent_id": "agent_001",
+    "task_name": "navigation_task",
+    "start_time": "2025-11-13T17:12:07.909039",
+    "end_time": "2025-11-13T17:12:09.909164",
+    "success": true,
+    "score": 0.8355939743925588,
+    "performance_metrics": {
+      "accuracy": 0.836401237893445,
+      "efficiency": 0.6373866658508978,
+      "robustness": 0.457571717493821,
+      "adaptability": 0.58292981022444,
+      "completion_time": 147.5054459691652,
+      "resource_efficiency": 0.7302260175830194
+    },
+    "error_message": null,
+    "resource_usage": {
+      "cpu_usage": 61.88535184770211,
+      "memory_usage": 47.167326192422514,
+      "network_io": 5.289293043309247
+    }
+  },
+  {
+    "test_id": "object_manipulation_20251113_171209",
+    "agent_id": "agent_001",
+    "task_name": "object_manipulation",
+    "start_time": "2025-11-13T17:12:09.967529",
+    "end_time": "2025-11-13T17:12:11.967644",
+    "success": true,
+    "score": 0.8060692710823811,
+    "performance_metrics": {
+      "accuracy": 0.8959721250046959,
+      "efficiency": 0.707965017163749,
+      "robustness": 0.5919199111469884,
+      "adaptability": 0.5674665001001871,
+      "completion_time": 80.574788091979,
+      "resource_efficiency": 0.7303267243492914
+    },
+    "error_message": null,
+    "resource_usage": {
+      "cpu_usage": 77.96514275332274,
+      "memory_usage": 20.603387689337847,
+      "network_io": 15.375443315525185
+    }
+  },
+  {
+    "test_id": "social_interaction_20251113_171212",
+    "agent_id": "agent_002",
+    "task_name": "social_interaction",
+    "start_time": "2025-11-13T17:12:12.021010",
+    "end_time": "2025-11-13T17:12:14.021131",
+    "success": true,
+    "score": 0.7796478641336682,
+    "performance_metrics": {
+      "accuracy": 0.856671170977809,
+      "efficiency": 0.7395300402044245,
+      "robustness": 0.718337717137042,
+      "adaptability": 0.41928897262909776,
+      "completion_time": 68.15942291952489,
+      "resource_efficiency": 0.8493033775139235
+    },
+    "error_message": null,
+    "resource_usage": {
+      "cpu_usage": 69.89228920300108,
+      "memory_usage": 46.21876943700016,
+      "network_io": 15.69835472547755
+    }
+  },
+  {
+    "test_id": "problem_solving_20251113_171214",
+    "agent_id": "agent_002",
+    "task_name": "problem_solving",
+    "start_time": "2025-11-13T17:12:14.077305",
+    "end_time": "2025-11-13T17:12:16.077392",
+    "success": true,
+    "score": 0.7562907931598485,
+    "performance_metrics": {
+      "accuracy": 0.9061727684118192,
+      "efficiency": 0.5629540836956674,
+      "robustness": 0.6710579216903356,
+      "adaptability": 0.5131138700508592,
+      "completion_time": 39.902434826639265,
+      "resource_efficiency": 0.895654624513482
+    },
+    "error_message": null,
+    "resource_usage": {
+      "cpu_usage": 75.07637744130687,
+      "memory_usage": 58.50312170988986,
+      "network_io": 6.05758607730722
+    }
+  },
+  {
+    "test_id": "memory_retrieval_20251113_171216",
+    "agent_id": "agent_001",
+    "task_name": "memory_retrieval",
+    "start_time": "2025-11-13T17:12:16.133664",
+    "end_time": "2025-11-13T17:12:18.133787",
+    "success": true,
+    "score": 0.830932490593156,
+    "performance_metrics": {
+      "accuracy": 0.885183562334694,
+      "efficiency": 0.7695197975754182,
+      "robustness": 0.6086905535409428,
+      "adaptability": 0.39078143690947365,
+      "completion_time": 111.63140777388449,
+      "resource_efficiency": 0.8880700475471958
+    },
+    "error_message": null,
+    "resource_usage": {
+      "cpu_usage": 21.223090993268325,
+      "memory_usage": 50.41469698534952,
+      "network_io": 8.083517486138575
+    }
+  }
+]

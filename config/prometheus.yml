@@ -1,0 +1,64 @@
+# Prometheus Configuration for NeuroMinecraft Genesis
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'nmg-local'
+    environment: 'development'
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []
+
+rule_files: []
+
+scrape_configs:
+  # Prometheus 自身监控
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # API 服务器监控
+  - job_name: 'nmg-api'
+    static_configs:
+      - targets: ['api-server:8080']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+
+  # Streamlit 仪表板监控
+  - job_name: 'nmg-dashboard'
+    static_configs:
+      - targets: ['dashboard:8501']
+    metrics_path: '/_stcore/health'
+    scrape_interval: 30s
+
+  # Redis 监控
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+    scrape_interval: 10s
+
+  # MongoDB 监控
+  - job_name: 'mongodb'
+    static_configs:
+      - targets: ['mongodb:27017']
+    scrape_interval: 30s
+
+  # PostgreSQL 监控
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres:5432']
+    scrape_interval: 30s
+
+  # 自定义 NeuroMinecraft 指标
+  - job_name: 'nmg-custom-metrics'
+    static_configs:
+      - targets: ['api-server:8080']
+    metrics_path: '/api/metrics'
+    scrape_interval: 5s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'nmg-custom'
